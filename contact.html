@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <title>Contact - The Last World</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -18,32 +18,72 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-
-<div class="bg-wrapper">
-    <div class="overlay">
-        <div class="content-container content">
-            <div class="full-title-wrapper">
-                <img src="myLogo.png" class="logo-biohazard">
-                <div class="title-text-stack">
-                    <h1 class="bloody-title">SOS SIGNAL</h1>
-                    <p class="survival-text">CONTACT</p>
-                </div>
+    <div class="bg-wrapper">
+        <div class="lang-container" onclick="toggleLanguage()">
+            <div class="lang-options">
+                <span id="lang-fr" class="active-lang">FR</span> / <span id="lang-en">EN</span>
             </div>
+            <svg class="globe-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z"/>
+            </svg>
+        </div>
 
-            <form class="alert-terminal contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <div class="alert-header">📡 TRANSMISSION</div>
-                <input type="text" name="callsign" placeholder="Callsign / Username" required>
-                <input type="email" name="email" placeholder="Frequency (email)" required>
-                <textarea name="message" placeholder="Situation report... bugs, bans, help" rows="6" required></textarea>
-                <button type="submit" class="btn-neon">SEND SOS</button>
-            </form>
+        <div class="overlay">
+            <div class="content-container">
+                <div class="full-title-wrapper">
+                    <img src="myLogo.png" alt="Biohazard Logo" class="logo-biohazard">
+                    <div class="title-text-stack">
+                        <h1 class="bloody-title">SOS SIGNAL</h1>
+                        <p class="survival-text">CONTACT</p>
+                    </div>
+                </div>
 
-            <div class="stats-grid">
-                <div class="stat-card"><span class="stat-val">Discord.gg/yourserver</span><span class="stat-label">Primary</span></div>
+                <div id="subtitle" class="subtitle">CANAL DE COMMUNICATION // ZONE DE QUARANTAINE</div>
+
+                <div class="alert-terminal">
+                    <div id="info-title" class="alert-header">📡 TRANSMISSION_INFO</div>
+                    <p id="info-body" class="alert-text">
+                        Utilisez ce formulaire pour signaler:<br>
+                        • Bugs techniques et problèmes de connexion<br>
+                        • Demandes de support et questions<br>
+                        • Problèmes de ban ou de whitelist<br>
+                        • Suggestions et améliorations<br><br>
+                        <span class="highlight-danger">RÉPONSE SOUS 24-48H</span>
+                    </p>
+                </div>
+
+                <form class="alert-terminal contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div id="form-title" class="alert-header">📡 TRANSMISSION</div>
+                    <input type="text" name="callsign" id="callsign-input" placeholder="Callsign / Nom d'utilisateur" required>
+                    <input type="email" name="email" id="email-input" placeholder="Fréquence (email)" required>
+                    <textarea name="message" id="message-input" placeholder="Rapport de situation... bugs, bans, aide" rows="6" required></textarea>
+                    <button type="submit" id="submit-btn" class="btn-neon">ENVOYER SOS</button>
+                </form>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-val">Discord</span>
+                        <span id="label-1" class="stat-label">Support primaire</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-val">24-48h</span>
+                        <span id="label-2" class="stat-label">Temps de réponse</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-val">FR/EN</span>
+                        <span id="label-3" class="stat-label">Langues</span>
+                    </div>
+                </div>
+
+                <a href="https://discord.gg/YOUR_LINK" id="btn-discord" class="btn-neon">REJOINDRE DISCORD</a>
+
+                <div class="server-status">
+                    <span class="status-dot"></span>
+                    <span id="server-status-text">COMMUNICATIONS ACTIVES - v2.5.0</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <footer>
         <div class="footer-content">
@@ -58,25 +98,45 @@
         let currentLang = 'fr';
         const content = {
             fr: {
-                subtitle: "SERVEUR FIVEM // SURVIVAL HORROR",
-                alertTitle: "⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE",
-                alertBody: `Zone de quarantaine active. Infection généralisée.<br>Le monde tel que tu le connaissais n'existe plus.<br><br>Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.`,
-                labelPlayers: "Joueurs Actifs",
-                labelInfection: "Taux d'infection",
-                labelHordes: "Hordes",
-                btnConnect: "SE CONNECTER",
-                status: "SYSTEME OPÉRATIONNEL - v2.5.0",
+                subtitle: "CANAL DE COMMUNICATION // ZONE DE QUARANTAINE",
+                infoTitle: "📡 TRANSMISSION_INFO",
+                infoBody: `Utilisez ce formulaire pour signaler:<br>
+                        • Bugs techniques et problèmes de connexion<br>
+                        • Demandes de support et questions<br>
+                        • Problèmes de ban ou de whitelist<br>
+                        • Suggestions et améliorations<br><br>
+                        <span class="highlight-danger">RÉPONSE SOUS 24-48H</span>`,
+                formTitle: "📡 TRANSMISSION",
+                callsignPlaceholder: "Callsign / Nom d'utilisateur",
+                emailPlaceholder: "Fréquence (email)",
+                messagePlaceholder: "Rapport de situation... bugs, bans, aide",
+                submitBtn: "ENVOYER SOS",
+                label1: "Support primaire",
+                label2: "Temps de réponse",
+                label3: "Langues",
+                btnDiscord: "REJOINDRE DISCORD",
+                status: "COMMUNICATIONS ACTIVES - v2.5.0",
                 footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
             },
             en: {
-                subtitle: "FIVEM SERVER // SURVIVAL HORROR",
-                alertTitle: "⚠ SYSTEM_MESSAGE: CRITICAL_STATUS",
-                alertBody: `Quarantine zone active. Widespread infection.<br>The world as you knew it is gone.<br><br>Beware of <span class="highlight-danger">ZOMBIES</span> and other <span class="highlight-danger">SURVIVORS</span>.`,
-                labelPlayers: "Active Players",
-                labelInfection: "Infection Rate",
-                labelHordes: "Hordes",
-                btnConnect: "CONNECT NOW",
-                status: "SYSTEM OPERATIONAL - v2.5.0",
+                subtitle: "COMMUNICATION CHANNEL // QUARANTINE ZONE",
+                infoTitle: "📡 TRANSMISSION_INFO",
+                infoBody: `Use this form to report:<br>
+                        • Technical bugs and connection issues<br>
+                        • Support requests and questions<br>
+                        • Ban or whitelist problems<br>
+                        • Suggestions and improvements<br><br>
+                        <span class="highlight-danger">RESPONSE WITHIN 24-48H</span>`,
+                formTitle: "📡 TRANSMISSION",
+                callsignPlaceholder: "Callsign / Username",
+                emailPlaceholder: "Frequency (email)",
+                messagePlaceholder: "Situation report... bugs, bans, help",
+                submitBtn: "SEND SOS",
+                label1: "Primary Support",
+                label2: "Response Time",
+                label3: "Languages",
+                btnDiscord: "JOIN DISCORD",
+                status: "COMMUNICATIONS ACTIVE - v2.5.0",
                 footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
             }
         };
@@ -86,14 +146,22 @@
             document.getElementById('lang-fr').className = currentLang === 'fr' ? 'active-lang' : '';
             document.getElementById('lang-en').className = currentLang === 'en' ? 'active-lang' : '';
             const t = content[currentLang];
-            // Update all your elements here matching your original script
+            
             if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
-            if(document.getElementById('alert-title')) document.getElementById('alert-title').innerText = t.alertTitle;
-            if(document.getElementById('alert-body')) document.getElementById('alert-body').innerHTML = t.alertBody;
-            // ... add other elements as needed per page
+            if(document.getElementById('info-title')) document.getElementById('info-title').innerHTML = t.infoTitle;
+            if(document.getElementById('info-body')) document.getElementById('info-body').innerHTML = t.infoBody;
+            if(document.getElementById('form-title')) document.getElementById('form-title').innerHTML = t.formTitle;
+            if(document.getElementById('callsign-input')) document.getElementById('callsign-input').placeholder = t.callsignPlaceholder;
+            if(document.getElementById('email-input')) document.getElementById('email-input').placeholder = t.emailPlaceholder;
+            if(document.getElementById('message-input')) document.getElementById('message-input').placeholder = t.messagePlaceholder;
+            if(document.getElementById('submit-btn')) document.getElementById('submit-btn').innerText = t.submitBtn;
+            if(document.getElementById('label-1')) document.getElementById('label-1').innerText = t.label1;
+            if(document.getElementById('label-2')) document.getElementById('label-2').innerText = t.label2;
+            if(document.getElementById('label-3')) document.getElementById('label-3').innerText = t.label3;
+            if(document.getElementById('btn-discord')) document.getElementById('btn-discord').innerText = t.btnDiscord;
+            if(document.getElementById('server-status-text')) document.getElementById('server-status-text').innerText = t.status;
             if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
         }
     </script>
 </body>
 </html>
-
