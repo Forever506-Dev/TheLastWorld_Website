@@ -1,49 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Contact – YOURSERVER</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- shared header + nav -->
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Installation</a>
+        <a href="photos.html">Photos</a>
+        <a href="contact.html">Contact</a>
+    </nav>
 
-  <main class="content">
-    <h1>Contact The Staff</h1>
-    <p>If you need help with installation, bans, or bug reports, use the form below or reach us on Discord.</p>
 
-    <form class="contact-form" action="https://formspree.io/f/YOUR_ID" method="POST">
-      <label>
-        In‑game name
-        <input type="text" name="player_name" required>
-      </label>
+<div class="bg-wrapper">
+    <div class="overlay">
+        <div class="content-container content">
+            <div class="full-title-wrapper">
+                <img src="myLogo.png" class="logo-biohazard">
+                <div class="title-text-stack">
+                    <h1 class="bloody-title">SOS SIGNAL</h1>
+                    <p class="survival-text">CONTACT</p>
+                </div>
+            </div>
 
-      <label>
-        Email
-        <input type="email" name="email" required>
-      </label>
+            <form class="alert-terminal contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="alert-header">📡 TRANSMISSION</div>
+                <input type="text" name="callsign" placeholder="Callsign / Username" required>
+                <input type="email" name="email" placeholder="Frequency (email)" required>
+                <textarea name="message" placeholder="Situation report... bugs, bans, help" rows="6" required></textarea>
+                <button type="submit" class="btn-neon">SEND SOS</button>
+            </form>
 
-      <label>
-        Subject
-        <input type="text" name="subject" required>
-      </label>
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-val">Discord.gg/yourserver</span><span class="stat-label">Primary</span></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-      <label>
-        Message
-        <textarea name="message" rows="5" required></textarea>
-      </label>
+    <footer>
+        <div class="footer-content">
+            <p id="footer-rights">&copy; 2025 THE LAST WORLD. Tous droits réservés.</p>
+            <p class="creators">
+                Dev Team : <span>Simon Foisy</span> | <span>Vincent Roussel</span> | <span>Thibault Schees</span>
+            </p>
+        </div>
+    </footer>
 
-      <button type="submit">Send Transmission</button>
-    </form>
+    <script>
+        let currentLang = 'fr';
+        const content = {
+            fr: {
+                subtitle: "SERVEUR FIVEM // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE",
+                alertBody: `Zone de quarantaine active. Infection généralisée.<br>Le monde tel que tu le connaissais n'existe plus.<br><br>Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.`,
+                labelPlayers: "Joueurs Actifs",
+                labelInfection: "Taux d'infection",
+                labelHordes: "Hordes",
+                btnConnect: "SE CONNECTER",
+                status: "SYSTEME OPÉRATIONNEL - v2.5.0",
+                footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
+            },
+            en: {
+                subtitle: "FIVEM SERVER // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: CRITICAL_STATUS",
+                alertBody: `Quarantine zone active. Widespread infection.<br>The world as you knew it is gone.<br><br>Beware of <span class="highlight-danger">ZOMBIES</span> and other <span class="highlight-danger">SURVIVORS</span>.`,
+                labelPlayers: "Active Players",
+                labelInfection: "Infection Rate",
+                labelHordes: "Hordes",
+                btnConnect: "CONNECT NOW",
+                status: "SYSTEM OPERATIONAL - v2.5.0",
+                footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
+            }
+        };
 
-    <section class="contact-links">
-      <h2>Other Channels</h2>
-      <ul>
-        <li>Discord: <a href="https://discord.gg/YOURCODE" target="_blank">Join the bunker</a></li>
-        <li>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></li>
-        <li>Tebex: <a href="https://YOURTEBEX.tebex.io" target="_blank">Supply crate store</a></li>
-      </ul>
-    </section>
-  </main>
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.getElementById('lang-fr').className = currentLang === 'fr' ? 'active-lang' : '';
+            document.getElementById('lang-en').className = currentLang === 'en' ? 'active-lang' : '';
+            const t = content[currentLang];
+            // Update all your elements here matching your original script
+            if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
+            if(document.getElementById('alert-title')) document.getElementById('alert-title').innerText = t.alertTitle;
+            if(document.getElementById('alert-body')) document.getElementById('alert-body').innerHTML = t.alertBody;
+            // ... add other elements as needed per page
+            if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
+        }
+    </script>
 </body>
 </html>
+

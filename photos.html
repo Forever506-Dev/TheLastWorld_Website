@@ -1,72 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Photos – YOURSERVER</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .slideshow-container { position: relative; max-width: 900px; margin: 40px auto; }
-    .slide { display: none; }
-    .slide img { width: 100%; border: 3px solid #900; box-shadow: 0 0 25px #000; }
-    .prev, .next {
-      cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
-      padding: 8px 14px; background: rgba(0,0,0,0.6); color:#fff; font-weight:bold;
-    }
-    .prev { left: 10px; }
-    .next { right: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- shared header + nav -->
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Installation</a>
+        <a href="photos.html">Photos</a>
+        <a href="contact.html">Contact</a>
+    </nav> 
 
-  <main class="content">
-    <h1>Field Photos</h1>
-    <p>Fragments of the outbreak: screenshots, map locations and concept art from the contaminated zone.</p>
+<div class="bg-wrapper">
+    <div class="overlay">
+        <div class="content-container content">
+            <div class="full-title-wrapper">
+                <img src="myLogo.png" class="logo-biohazard">
+                <div class="title-text-stack">
+                    <h1 class="bloody-title">VISUAL LOGS</h1>
+                    <p class="survival-text">GALLERY</p>
+                </div>
+            </div>
 
-    <div class="slideshow-container" id="slideshow"></div>
+            <div class="slideshow-container">
+                <div class="slide fade"><img src="images/gallery/1.jpg" alt="Screenshot 1"></div>
+                <div class="slide fade"><img src="images/gallery/2.jpg" alt="Screenshot 2"></div>
+                <!-- ADD YOUR IMAGES HERE: copy your fond.jpg etc to images/gallery/ and reference -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="prev" onclick="plusSlides(-1)">&#10094;</div>
-    <div class="next" onclick="plusSlides(1)">&#10095;</div>
-  </main>
+<script>
+let slideIndex = 1;
+showSlides(slideIndex);
+function plusSlides(n) { showSlides(slideIndex += n); }
+function showSlides(n) {
+  let i, slides = document.getElementsByClassName("slide");
+  if (n > slides.length) slideIndex = 1;
+  if (n < 1) slideIndex = slides.length;
+  for (i = 0; i < slides.length; i++) slides[i].style.display = "none";
+  slides[slideIndex-1].style.display = "block";
+}
+</script>
 
-  <script>
-    const imageFolder = 'images/gallery/';
-    const imageNames = [
-      'fond.jpg',
-      'myLogo.jpg',
-      'Bas-bouton.jpg'
-      // add more filenames here
-    ];
+    <footer>
+        <div class="footer-content">
+            <p id="footer-rights">&copy; 2025 THE LAST WORLD. Tous droits réservés.</p>
+            <p class="creators">
+                Dev Team : <span>Simon Foisy</span> | <span>Vincent Roussel</span> | <span>Thibault Schees</span>
+            </p>
+        </div>
+    </footer>
 
-    const container = document.getElementById('slideshow');
+    <script>
+        let currentLang = 'fr';
+        const content = {
+            fr: {
+                subtitle: "SERVEUR FIVEM // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE",
+                alertBody: `Zone de quarantaine active. Infection généralisée.<br>Le monde tel que tu le connaissais n'existe plus.<br><br>Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.`,
+                labelPlayers: "Joueurs Actifs",
+                labelInfection: "Taux d'infection",
+                labelHordes: "Hordes",
+                btnConnect: "SE CONNECTER",
+                status: "SYSTEME OPÉRATIONNEL - v2.5.0",
+                footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
+            },
+            en: {
+                subtitle: "FIVEM SERVER // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: CRITICAL_STATUS",
+                alertBody: `Quarantine zone active. Widespread infection.<br>The world as you knew it is gone.<br><br>Beware of <span class="highlight-danger">ZOMBIES</span> and other <span class="highlight-danger">SURVIVORS</span>.`,
+                labelPlayers: "Active Players",
+                labelInfection: "Infection Rate",
+                labelHordes: "Hordes",
+                btnConnect: "CONNECT NOW",
+                status: "SYSTEM OPERATIONAL - v2.5.0",
+                footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
+            }
+        };
 
-    imageNames.forEach((name, index) => {
-      const div = document.createElement('div');
-      div.className = 'slide';
-      if (index === 0) div.style.display = 'block';
-
-      const img = document.createElement('img');
-      img.src = imageFolder + name;
-      img.alt = 'Survival screenshot ' + (index + 1);
-      div.appendChild(img);
-
-      container.appendChild(div);
-    });
-
-    let slideIndex = 0;
-    function showSlide(n) {
-      const slides = document.querySelectorAll('.slide');
-      slideIndex = (n + slides.length) % slides.length;
-      slides.forEach(s => s.style.display = 'none');
-      slides[slideIndex].style.display = 'block';
-    }
-
-    function plusSlides(n) {
-      showSlide(slideIndex + n);
-    }
-
-    // auto‑play
-    setInterval(() => { plusSlides(1); }, 7000);
-  </script>
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.getElementById('lang-fr').className = currentLang === 'fr' ? 'active-lang' : '';
+            document.getElementById('lang-en').className = currentLang === 'en' ? 'active-lang' : '';
+            const t = content[currentLang];
+            // Update all your elements here matching your original script
+            if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
+            if(document.getElementById('alert-title')) document.getElementById('alert-title').innerText = t.alertTitle;
+            if(document.getElementById('alert-body')) document.getElementById('alert-body').innerHTML = t.alertBody;
+            // ... add other elements as needed per page
+            if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
+        }
+    </script>
 </body>
 </html>
+

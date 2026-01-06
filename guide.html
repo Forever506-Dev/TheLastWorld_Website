@@ -1,36 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Installation Guide – YOURSERVER</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- shared header + nav -->
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="guide.html">Installation</a>
+        <a href="photos.html">Photos</a>
+        <a href="contact.html">Contact</a>
+    </nav>
 
-  <main class="content">
-    <h1>How To Join The Server</h1>
 
-    <h2>1. Install GTA V and FiveM</h2>
-    <ol>
-      <li>Install Grand Theft Auto V (Steam, Rockstar, or Epic) and run it once.</li>
-      <li>Download the FiveM client from the official Cfx.re website and install it.</li>
-      <li>When FiveM starts, choose your GTA V folder if asked and let it update.</li>
-    </ol>
+<div class="bg-wrapper">
+    <div class="overlay">
+        <div class="content-container content">
+            <div class="full-title-wrapper">
+                <img src="myLogo.png" class="logo-biohazard">
+                <div class="title-text-stack">
+                    <h1 class="bloody-title">JOIN PROTOCOL</h1>
+                    <p class="survival-text">INSTALL</p>
+                </div>
+            </div>
 
-    <h2>2. Connect To The Server</h2>
-    <ol>
-      <li>Launch FiveM, go to the Servers or Direct Connect tab.</li>
-      <li>Search for <strong>YOURSERVERNAME</strong> or use direct IP <code>your.ip:30120</code>.</li>
-      <li>Click Connect and accept any resource downloads.</li>
-    </ol>
+            <div class="alert-terminal">
+                <div class="alert-header">1️⃣ GTA V + FiveM</div>
+                <ol class="alert-text">
+                    <li>Launch GTA V once</li>
+                    <li>Download FiveM from fivem.net</li>
+                    <li>fivem://connect/YOUR.IP:30120</li>
+                </ol>
+            </div>
 
-    <h2>3. Recommended Settings</h2>
-    <ul>
-      <li>Disable overloaded visual mods and heavy reshades to avoid crashes.</li>
-      <li>Use a wired connection when possible for better sync during horde events.</li>
-      <li>Join our Discord for support, whitelist, and modpack updates.</li>
-    </ul>
-  </main>
+            <div class="alert-terminal">
+                <div class="alert-header">2️⃣ WHITELIST</div>
+                <p class="alert-text">Discord verification required. Low ping preferred.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer>
+        <div class="footer-content">
+            <p id="footer-rights">&copy; 2025 THE LAST WORLD. Tous droits réservés.</p>
+            <p class="creators">
+                Dev Team : <span>Simon Foisy</span> | <span>Vincent Roussel</span> | <span>Thibault Schees</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'fr';
+        const content = {
+            fr: {
+                subtitle: "SERVEUR FIVEM // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE",
+                alertBody: `Zone de quarantaine active. Infection généralisée.<br>Le monde tel que tu le connaissais n'existe plus.<br><br>Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.`,
+                labelPlayers: "Joueurs Actifs",
+                labelInfection: "Taux d'infection",
+                labelHordes: "Hordes",
+                btnConnect: "SE CONNECTER",
+                status: "SYSTEME OPÉRATIONNEL - v2.5.0",
+                footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
+            },
+            en: {
+                subtitle: "FIVEM SERVER // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: CRITICAL_STATUS",
+                alertBody: `Quarantine zone active. Widespread infection.<br>The world as you knew it is gone.<br><br>Beware of <span class="highlight-danger">ZOMBIES</span> and other <span class="highlight-danger">SURVIVORS</span>.`,
+                labelPlayers: "Active Players",
+                labelInfection: "Infection Rate",
+                labelHordes: "Hordes",
+                btnConnect: "CONNECT NOW",
+                status: "SYSTEM OPERATIONAL - v2.5.0",
+                footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.getElementById('lang-fr').className = currentLang === 'fr' ? 'active-lang' : '';
+            document.getElementById('lang-en').className = currentLang === 'en' ? 'active-lang' : '';
+            const t = content[currentLang];
+            // Update all your elements here matching your original script
+            if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
+            if(document.getElementById('alert-title')) document.getElementById('alert-title').innerText = t.alertTitle;
+            if(document.getElementById('alert-body')) document.getElementById('alert-body').innerHTML = t.alertBody;
+            // ... add other elements as needed per page
+            if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
+        }
+    </script>
 </body>
 </html>
+
