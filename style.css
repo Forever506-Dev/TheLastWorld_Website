@@ -50,6 +50,67 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     text-shadow: 0 0 10px #00ff00;
 }
 
+/* HEADER SECTION - NEW */
+.site-header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #4a4a4a 100%);
+    padding: 30px 40px;
+    margin-top: 60px;
+    border-bottom: 3px solid #cf0000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-logo-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #cf0000;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(207, 0, 0, 0.5);
+}
+
+.header-title-section {
+    flex: 1;
+}
+
+.header-main-title {
+    font-family: 'Nosifer', cursive;
+    font-size: 4rem;
+    color: #cf0000;
+    margin: 0;
+    text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
+    letter-spacing: 3px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.header-subtitle-text {
+    font-family: 'Nosifer', cursive;
+    font-size: 2.5rem;
+    color: #cf0000;
+    margin: -10px 0 0 0;
+    text-shadow: 3px 3px 0px #000;
+    letter-spacing: 8px;
+}
+
+.header-tagline {
+    font-size: 1.1rem;
+    color: #888;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-left: 4px solid #cf0000;
+    padding-left: 15px;
+    font-weight: 700;
+}
+
 /* BACKGROUND WRAPPER */
 .bg-wrapper {
     background: url('fond.jpg') no-repeat center center/cover;
@@ -74,7 +135,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     margin-left: 8%;
     text-align: left; 
     padding: 20px;
-    padding-top: 120px;
+    padding-top: 60px;
 }
 
 /* LANGUAGE SELECTOR */
@@ -208,6 +269,15 @@ h1.bloody-title {
 
 .alert-text li {
     margin: 8px 0;
+}
+
+.alert-text a {
+    color: #00ff00;
+    text-decoration: none;
+}
+
+.alert-text a:hover {
+    text-decoration: underline;
 }
 
 .highlight-danger { 
@@ -398,10 +468,43 @@ footer {
         letter-spacing: 1px;
     }
 
+    .site-header {
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .header-logo-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .header-main-title {
+        font-size: 2.5rem;
+    }
+
+    .header-subtitle-text {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+    }
+
+    .header-tagline {
+        font-size: 0.9rem;
+        border-left: none;
+        border-top: 2px solid #cf0000;
+        padding-left: 0;
+        padding-top: 10px;
+    }
+
     .content-container {
         margin-left: 5%;
         margin-right: 5%;
-        padding-top: 100px;
+        padding-top: 40px;
     }
 
     h1.bloody-title {

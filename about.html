@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - The Last World</title>
+    <title>TheLastWorld Survival</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -18,6 +18,18 @@
         <a href="contact.html">Contact</a>
     </nav>
 
+    <!-- NEW HEADER SECTION -->
+    <header class="site-header">
+        <div class="header-container">
+            <img src="myLogo.png" alt="The Last World Logo" class="header-logo-img">
+            <div class="header-title-section">
+                <h1 class="header-main-title">THE LAST WORLD</h1>
+                <h2 class="header-subtitle-text">SURVIVAL</h2>
+                <p id="header-tagline" class="header-tagline">SERVEUR FIVEM // SURVIVAL HORROR</p>
+            </div>
+        </div>
+    </header>
+
     <div class="bg-wrapper">
         <div class="lang-container" onclick="toggleLanguage()">
             <div class="lang-options">
@@ -30,53 +42,31 @@
 
         <div class="overlay">
             <div class="content-container">
-                <div class="full-title-wrapper">
-                    <img src="myLogo.png" alt="Biohazard Logo" class="logo-biohazard">
-                    <div class="title-text-stack">
-                        <h1 class="bloody-title">THE OUTBREAK</h1>
-                        <p class="survival-text">SURVIVAL</p>
-                    </div>
-                </div>
-
-                <div id="subtitle" class="subtitle">SERVEUR FIVEM // SURVIVAL HORROR</div>
-
                 <div class="alert-terminal">
-                    <div id="alert-title" class="alert-header">📋 SYSTEM_MESSAGE: SERVER_INFO</div>
+                    <div id="alert-title" class="alert-header">⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE</div>
                     <p id="alert-body" class="alert-text">
-                        Serveur FiveM apocalypse zombie basé sur QBCore.<br>
-                        Récupérez des ressources, fabriquez, combattez des hordes et construisez votre faction.<br><br>
-                        Survie hardcore où <span class="highlight-danger">LA CONFIANCE EST MORTE</span>.
-                    </p>
-                </div>
-
-                <div class="alert-terminal">
-                    <div class="alert-header">🎮 FEATURES / CARACTÉRISTIQUES</div>
-                    <p class="alert-text">
-                        • Hordes de zombies dynamiques avec IA avancée<br>
-                        • Système de faim, soif et santé réaliste<br>
-                        • Craft d'armes, de fortifications et de ressources<br>
-                        • PvP et PvE zones de quarantaine<br>
-                        • Économie de survie et commerce entre joueurs<br>
-                        • Événements de serveur et raids de bunkers
+                        Zone de quarantaine active. Infection généralisée.<br>
+                        Le monde tel que tu le connaissais n'existe plus.<br><br>
+                        Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.
                     </p>
                 </div>
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <span class="stat-val">QBCore</span>
-                        <span id="label-1" class="stat-label">Framework</span>
+                        <span class="stat-val">247</span>
+                        <span id="label-players" class="stat-label">Joueurs Actifs</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-val">24/7</span>
-                        <span id="label-2" class="stat-label">En ligne</span>
+                        <span class="stat-val">98%</span>
+                        <span id="label-infection" class="stat-label">Taux d'infection</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-val">∞</span>
-                        <span id="label-3" class="stat-label">Hordes</span>
+                        <span class="stat-val">&infin;</span>
+                        <span id="label-hordes" class="stat-label">Hordes</span>
                     </div>
                 </div>
 
-                <a id="btn-discord" href="https://discord.gg/YOUR_LINK" class="btn-neon">REJOINDRE DISCORD</a>
+                <a id="btn-discord" href="https://discord.gg/cWMHmnQD" class="btn-neon">REJOINDRE DISCORD</a>
 
                 <div class="server-status">
                     <span class="status-dot"></span>
@@ -90,33 +80,34 @@
         <div class="footer-content">
             <p id="footer-rights">&copy; 2025 THE LAST WORLD. Tous droits réservés.</p>
             <p class="creators">
-                Dev Team : <span>Simon Foisy</span> | <span>Vincent Roussel</span> | <span>Thibault Schees</span>
+                Dev Team : <span>Vincent Roussel</span>
             </p>
         </div>
     </footer>
 
     <script>
         let currentLang = 'fr';
+
         const content = {
             fr: {
-                subtitle: "SERVEUR FIVEM // SURVIVAL HORROR",
-                alertTitle: "📋 SYSTEM_MESSAGE: SERVER_INFO",
-                alertBody: `Serveur FiveM apocalypse zombie basé sur QBCore.<br>Récupérez des ressources, fabriquez, combattez des hordes et construisez votre faction.<br><br>Survie hardcore où <span class="highlight-danger">LA CONFIANCE EST MORTE</span>.`,
-                label1: "Framework",
-                label2: "En ligne",
-                label3: "Hordes",
-                btnDiscord: "REJOINDRE DISCORD",
+                headerTagline: "SERVEUR FIVEM // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE",
+                alertBody: `Zone de quarantaine active. Infection généralisée.<br>Le monde tel que tu le connaissais n'existe plus.<br><br>Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.`, 
+                labelPlayers: "Joueurs Actifs",
+                labelInfection: "Taux d'infection",
+                labelHordes: "Hordes",
+                btnConnect: "SE CONNECTER",
                 status: "SYSTEME OPÉRATIONNEL - v2.5.0",
                 footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
             },
             en: {
-                subtitle: "FIVEM SERVER // SURVIVAL HORROR",
-                alertTitle: "📋 SYSTEM_MESSAGE: SERVER_INFO",
-                alertBody: `QBCore zombie apocalypse FiveM server.<br>Scavenge resources, craft, fight hordes and build your faction.<br><br>Hardcore survival where <span class="highlight-danger">TRUST IS DEAD</span>.`,
-                label1: "Framework",
-                label2: "Online",
-                label3: "Hordes",
-                btnDiscord: "JOIN DISCORD",
+                headerTagline: "FIVEM SERVER // SURVIVAL HORROR",
+                alertTitle: "⚠ SYSTEM_MESSAGE: CRITICAL_STATUS",
+                alertBody: `Quarantine zone active. Widespread infection.<br>The world as you knew it is gone.<br><br>Beware of <span class="highlight-danger">ZOMBIES</span> and other <span class="highlight-danger">SURVIVORS</span>.`, 
+                labelPlayers: "Active Players",
+                labelInfection: "Infection Rate",
+                labelHordes: "Hordes",
+                btnConnect: "CONNECT NOW",
                 status: "SYSTEM OPERATIONAL - v2.5.0",
                 footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
             }
@@ -124,19 +115,20 @@
 
         function toggleLanguage() {
             currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            
             document.getElementById('lang-fr').className = currentLang === 'fr' ? 'active-lang' : '';
             document.getElementById('lang-en').className = currentLang === 'en' ? 'active-lang' : '';
+
             const t = content[currentLang];
-            
-            if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
-            if(document.getElementById('alert-title')) document.getElementById('alert-title').innerHTML = t.alertTitle;
-            if(document.getElementById('alert-body')) document.getElementById('alert-body').innerHTML = t.alertBody;
-            if(document.getElementById('label-1')) document.getElementById('label-1').innerText = t.label1;
-            if(document.getElementById('label-2')) document.getElementById('label-2').innerText = t.label2;
-            if(document.getElementById('label-3')) document.getElementById('label-3').innerText = t.label3;
-            if(document.getElementById('btn-discord')) document.getElementById('btn-discord').innerText = t.btnDiscord;
-            if(document.getElementById('server-status-text')) document.getElementById('server-status-text').innerText = t.status;
-            if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
+            document.getElementById('header-tagline').innerText = t.headerTagline;
+            document.getElementById('alert-title').innerText = t.alertTitle;
+            document.getElementById('alert-body').innerHTML = t.alertBody; 
+            document.getElementById('label-players').innerText = t.labelPlayers;
+            document.getElementById('label-infection').innerText = t.labelInfection;
+            document.getElementById('label-hordes').innerText = t.labelHordes;
+            document.getElementById('btn-connect').innerText = t.btnConnect;
+            document.getElementById('server-status-text').innerText = t.status;
+            document.getElementById('footer-rights').innerHTML = t.footer;
         }
     </script>
 </body>

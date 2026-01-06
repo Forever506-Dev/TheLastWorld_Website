@@ -18,6 +18,18 @@
         <a href="contact.html">Contact</a>
     </nav>
 
+    <!-- HEADER SECTION -->
+    <header class="site-header">
+        <div class="header-container">
+            <img src="myLogo.png" alt="The Last World Logo" class="header-logo-img">
+            <div class="header-title-section">
+                <h1 class="header-main-title">THE LAST WORLD</h1>
+                <h2 class="header-subtitle-text">SURVIVAL</h2>
+                <p id="header-tagline" class="header-tagline">SERVEUR FIVEM // SURVIVAL HORROR</p>
+            </div>
+        </div>
+    </header>
+
     <div class="bg-wrapper">
         <div class="lang-container" onclick="toggleLanguage()">
             <div class="lang-options">
@@ -75,7 +87,7 @@
                     </div>
                 </div>
 
-                <a href="https://discord.gg/YOUR_LINK" id="btn-discord" class="btn-neon">REJOINDRE DISCORD</a>
+                <a href="https://discord.gg/cWMHmnQD" id="btn-discord" class="btn-neon">REJOINDRE DISCORD</a>
 
                 <div class="server-status">
                     <span class="status-dot"></span>
@@ -98,6 +110,7 @@
         let currentLang = 'fr';
         const content = {
             fr: {
+                headerTagline: "SERVEUR FIVEM // SURVIVAL HORROR",
                 subtitle: "CANAL DE COMMUNICATION // ZONE DE QUARANTAINE",
                 infoTitle: "📡 TRANSMISSION_INFO",
                 infoBody: `Utilisez ce formulaire pour signaler:<br>
@@ -119,6 +132,7 @@
                 footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
             },
             en: {
+                headerTagline: "FIVEM SERVER // SURVIVAL HORROR",
                 subtitle: "COMMUNICATION CHANNEL // QUARANTINE ZONE",
                 infoTitle: "📡 TRANSMISSION_INFO",
                 infoBody: `Use this form to report:<br>
@@ -147,6 +161,7 @@
             document.getElementById('lang-en').className = currentLang === 'en' ? 'active-lang' : '';
             const t = content[currentLang];
             
+            if(document.getElementById('header-tagline')) document.getElementById('header-tagline').innerText = t.headerTagline;
             if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
             if(document.getElementById('info-title')) document.getElementById('info-title').innerHTML = t.infoTitle;
             if(document.getElementById('info-body')) document.getElementById('info-body').innerHTML = t.infoBody;
