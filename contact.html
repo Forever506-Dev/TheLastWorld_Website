@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – YOURSERVER</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- shared header + nav -->
+
+  <main class="content">
+    <h1>Contact The Staff</h1>
+    <p>If you need help with installation, bans, or bug reports, use the form below or reach us on Discord.</p>
+
+    <form class="contact-form" action="https://formspree.io/f/YOUR_ID" method="POST">
+      <label>
+        In‑game name
+        <input type="text" name="player_name" required>
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" required>
+      </label>
+
+      <label>
+        Subject
+        <input type="text" name="subject" required>
+      </label>
+
+      <label>
+        Message
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+
+      <button type="submit">Send Transmission</button>
+    </form>
+
+    <section class="contact-links">
+      <h2>Other Channels</h2>
+      <ul>
+        <li>Discord: <a href="https://discord.gg/YOURCODE" target="_blank">Join the bunker</a></li>
+        <li>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></li>
+        <li>Tebex: <a href="https://YOURTEBEX.tebex.io" target="_blank">Supply crate store</a></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photos – YOURSERVER</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .slideshow-container { position: relative; max-width: 900px; margin: 40px auto; }
+    .slide { display: none; }
+    .slide img { width: 100%; border: 3px solid #900; box-shadow: 0 0 25px #000; }
+    .prev, .next {
+      cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+      padding: 8px 14px; background: rgba(0,0,0,0.6); color:#fff; font-weight:bold;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+  </style>
+</head>
+<body>
+  <!-- shared header + nav -->
+
+  <main class="content">
+    <h1>Field Photos</h1>
+    <p>Fragments of the outbreak: screenshots, map locations and concept art from the contaminated zone.</p>
+
+    <div class="slideshow-container" id="slideshow"></div>
+
+    <div class="prev" onclick="plusSlides(-1)">&#10094;</div>
+    <div class="next" onclick="plusSlides(1)">&#10095;</div>
+  </main>
+
+  <script>
+    const imageFolder = 'images/gallery/';
+    const imageNames = [
+      'fond.jpg',
+      'myLogo.jpg',
+      'Bas-bouton.jpg'
+      // add more filenames here
+    ];
+
+    const container = document.getElementById('slideshow');
+
+    imageNames.forEach((name, index) => {
+      const div = document.createElement('div');
+      div.className = 'slide';
+      if (index === 0) div.style.display = 'block';
+
+      const img = document.createElement('img');
+      img.src = imageFolder + name;
+      img.alt = 'Survival screenshot ' + (index + 1);
+      div.appendChild(img);
+
+      container.appendChild(div);
+    });
+
+    let slideIndex = 0;
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      slideIndex = (n + slides.length) % slides.length;
+      slides.forEach(s => s.style.display = 'none');
+      slides[slideIndex].style.display = 'block';
+    }
+
+    function plusSlides(n) {
+      showSlide(slideIndex + n);
+    }
+
+    // auto‑play
+    setInterval(() => { plusSlides(1); }, 7000);
+  </script>
+</body>
+</html>
