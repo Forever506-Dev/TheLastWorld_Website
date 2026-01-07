@@ -115,6 +115,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     letter-spacing: 3px;
     line-height: 1;
     text-transform: uppercase;
+    animation: glitch-text 4s infinite;
 }
 
 .header-subtitle-text {
@@ -140,11 +141,23 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 /* BACKGROUND WRAPPER */
 .bg-wrapper {
     background-color: #111;
-    background: url('fond.jpg') no-repeat center center/cover;
     flex: 1; 
     display: flex; 
     align-items: center;
     position: relative;
+    overflow: hidden;
+}
+
+.bg-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('fond.jpg') no-repeat center center/cover;
+    z-index: 0;
+    animation: bg-zoom 40s infinite alternate ease-in-out;
 }
 
 .overlay {
@@ -155,6 +168,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     display: flex; 
     align-items: center;
     position: relative; 
+    z-index: 1;
 }
 
 .content-container {
@@ -617,4 +631,33 @@ footer {
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+}
+
+/* ANIMATIONS */
+@keyframes bg-zoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+}
+
+@keyframes glitch-text {
+    0% {
+        text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
+        transform: skew(0deg);
+    }
+    20% {
+        text-shadow: 4px 4px 0px #000, -3px 0 var(--neon-green), 3px 0 var(--blood-red);
+        transform: skew(-2deg);
+    }
+    22% {
+        text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
+        transform: skew(0deg);
+    }
+    60% {
+        text-shadow: 4px 4px 0px #000, 3px 0 var(--neon-green), -3px 0 var(--blood-red);
+        transform: skew(1deg);
+    }
+    62%, 100% {
+        text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
+        transform: skew(0deg);
+    }
 }
