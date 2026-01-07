@@ -83,31 +83,11 @@
                 </div>
 
                 <div class="slideshow-container">
-                    <div class="slide fade">
-                        <img src="fond.jpg" alt="Screenshot 1" onclick="openLightbox(this.src)">
-                    </div>
-                    <div class="slide fade">
-                        <img src="fond.jpg" alt="Screenshot 2" onclick="openLightbox(this.src)">
-                    </div>
-                    <div class="slide fade">
-                        <img src="fond.jpg" alt="Screenshot 3" onclick="openLightbox(this.src)">
-                    </div>
-                    <!-- Add more slides with your actual images -->
-                    
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
 
                 <div class="thumbnail-row">
-                    <div class="column">
-                        <img class="demo" src="fond.jpg" onclick="currentSlide(1)" alt="Thumbnail 1">
-                    </div>
-                    <div class="column">
-                        <img class="demo" src="fond.jpg" onclick="currentSlide(2)" alt="Thumbnail 2">
-                    </div>
-                    <div class="column">
-                        <img class="demo" src="fond.jpg" onclick="currentSlide(3)" alt="Thumbnail 3">
-                    </div>
                 </div>
 
                 <div class="stats-grid">
@@ -146,6 +126,26 @@
     <canvas id="matrix-canvas"></canvas>
     <script src="script.js"></script>
     <script>
+        // DYNAMIC GALLERY GENERATION
+        const totalImages = 33;
+        const slideContainer = document.querySelector('.slideshow-container');
+        const thumbContainer = document.querySelector('.thumbnail-row');
+        const prevBtn = slideContainer.querySelector('.prev');
+
+        for (let i = 1; i <= totalImages; i++) {
+            // Create Slide
+            const slide = document.createElement('div');
+            slide.className = 'slide fade';
+            slide.innerHTML = `<img src="images/gallery/${i}.jpeg" alt="Screenshot ${i}" onclick="openLightbox(this.src)">`;
+            slideContainer.insertBefore(slide, prevBtn);
+
+            // Create Thumbnail
+            const col = document.createElement('div');
+            col.className = 'column';
+            col.innerHTML = `<img class="demo" src="images/gallery/${i}.jpeg" onclick="currentSlide(${i})" alt="Thumbnail ${i}">`;
+            thumbContainer.appendChild(col);
+        }
+
         let slideIndex = 1;
         let currentLang = 'fr';
         

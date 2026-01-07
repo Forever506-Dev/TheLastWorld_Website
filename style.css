@@ -477,6 +477,7 @@ h1.bloody-title {
     gap: 10px;
     margin-top: 15px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .column {
