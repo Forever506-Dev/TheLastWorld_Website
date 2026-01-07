@@ -1,7 +1,15 @@
 * { box-sizing: border-box; }
 
+:root {
+    --neon-green: #00ff00;
+    --blood-red: #cf0000;
+    --bg-dark: #050505;
+    --terminal-bg: rgba(15, 15, 15, 0.95);
+    --border-color: #333;
+}
+
 body {
-    background-color: #050505;
+    background-color: var(--bg-dark);
     margin: 0; 
     padding: 0;
     color: #dcdcdc; 
@@ -11,11 +19,25 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     cursor: url('cursor.png'), default; 
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 /* CURSEUR DE POINTAGE */
 a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     cursor: url('pointer.png'), pointer !important;
+}
+
+/* SCANLINES EFFECT */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 9999;
 }
 
 /* NAVIGATION BAR */
@@ -24,8 +46,9 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     top: 0; 
     left: 0; 
     width: 100%;
-    background: rgba(0,0,0,0.95); 
-    backdrop-filter: blur(10px);
+    background: rgba(5, 5, 5, 0.9); 
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid #1a1a1a;
     padding: 15px 0; 
     z-index: 10000;
     display: flex; 
@@ -34,7 +57,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 }
 
 .nav a {
-    color: #00ff00; 
+    color: var(--neon-green); 
     font-size: 1.1rem; 
     font-weight: 700;
     text-decoration: none; 
@@ -46,17 +69,19 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 
 .nav a:hover {
     color: #fff; 
-    border-bottom-color: #00ff00;
-    text-shadow: 0 0 10px #00ff00;
+    border-bottom-color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
 }
 
 /* HEADER SECTION - NEW */
 .site-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #4a4a4a 100%);
+    background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%);
     padding: 30px 40px;
     margin-top: 60px;
-    border-bottom: 3px solid #cf0000;
+    border-bottom: 2px solid var(--blood-red);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
 }
 
 .header-container {
@@ -71,9 +96,9 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border: 3px solid #cf0000;
+    border: 2px solid var(--blood-red);
     border-radius: 5px;
-    box-shadow: 0 0 20px rgba(207, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(207, 0, 0, 0.3);
 }
 
 .header-title-section {
@@ -83,7 +108,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .header-main-title {
     font-family: 'Nosifer', cursive;
     font-size: 4rem;
-    color: #cf0000;
+    color: var(--blood-red);
     margin: 0;
     text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
     letter-spacing: 3px;
@@ -94,7 +119,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .header-subtitle-text {
     font-family: 'Nosifer', cursive;
     font-size: 2.5rem;
-    color: #cf0000;
+    color: var(--blood-red);
     margin: -10px 0 0 0;
     text-shadow: 3px 3px 0px #000;
     letter-spacing: 8px;
@@ -106,7 +131,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     margin-top: 15px;
     text-transform: uppercase;
     letter-spacing: 3px;
-    border-left: 4px solid #cf0000;
+    border-left: 3px solid var(--blood-red);
     padding-left: 15px;
     font-weight: 700;
 }
@@ -159,7 +184,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .lang-options {
     font-size: 0.9rem; 
     font-weight: bold; 
-    color: #00ff00;
+    color: var(--neon-green);
     opacity: 0; 
     transform: translateX(10px);
     transition: all 0.3s ease; 
@@ -170,7 +195,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .active-lang { text-decoration: underline; color: #fff; }
 
 .lang-container:hover .globe-icon {
-    fill: #00ff00; 
+    fill: var(--neon-green); 
     filter: drop-shadow(0 0 8px rgba(0,255,0,0.6));
     transform: rotate(15deg);
 }
@@ -204,7 +229,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 h1.bloody-title {
     font-family: 'Nosifer', cursive; 
     font-size: 4.5rem; 
-    color: #cf0000; 
+    color: var(--blood-red); 
     margin: 0; 
     text-shadow: 3px 3px 0px #000; 
     line-height: 1; 
@@ -215,7 +240,7 @@ h1.bloody-title {
 .survival-text {
     font-family: 'Nosifer', cursive; 
     font-size: 3.5rem; 
-    color: #cf0000; 
+    color: var(--blood-red); 
     margin: 0; 
     text-shadow: 3px 3px 0px #000; 
     line-height: 1; 
@@ -230,23 +255,24 @@ h1.bloody-title {
     margin-bottom: 50px;
     text-transform: uppercase; 
     letter-spacing: 3px;
-    border-left: 4px solid #cf0000; 
+    border-left: 3px solid var(--blood-red); 
     padding-left: 15px; 
     font-weight: 700;
 }
 
 /* ALERT TERMINAL */
 .alert-terminal {
-    background-color: rgba(25, 0, 0, 0.8);
-    border: 1px solid #500000; 
-    border-left: 4px solid #ff3333;
+    background-color: var(--terminal-bg);
+    border: 1px solid var(--border-color); 
+    border-left: 3px solid var(--blood-red);
     padding: 25px; 
     margin-bottom: 40px; 
     max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .alert-header {
-    color: #ff3333; 
+    color: var(--blood-red); 
     font-weight: bold; 
     letter-spacing: 1px;
     margin-bottom: 15px; 
@@ -272,7 +298,7 @@ h1.bloody-title {
 }
 
 .alert-text a {
-    color: #00ff00;
+    color: var(--neon-green);
     text-decoration: none;
 }
 
@@ -281,7 +307,7 @@ h1.bloody-title {
 }
 
 .highlight-danger { 
-    color: #ff3333; 
+    color: var(--blood-red); 
     font-weight: 700; 
 }
 
@@ -294,8 +320,8 @@ h1.bloody-title {
 }
 
 .stat-card {
-    background-color: rgba(12, 12, 12, 0.95);
-    border: 1px solid #333; 
+    background-color: var(--terminal-bg);
+    border: 1px solid var(--border-color); 
     padding: 20px;
     min-width: 160px; 
     border-radius: 3px;
@@ -304,7 +330,7 @@ h1.bloody-title {
 .stat-val {
     display: block; 
     font-size: 2.2rem; 
-    color: #ff3333;
+    color: var(--blood-red);
     font-weight: 700; 
     margin-bottom: 5px;
 }
@@ -321,9 +347,9 @@ h1.bloody-title {
 .btn-neon {
     display: inline-block; 
     padding: 15px 40px;
-    background-color: rgba(0,0,0,0.6);
-    border: 2px solid #00ff00; 
-    color: #00ff00;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid var(--neon-green); 
+    color: var(--neon-green);
     text-decoration: none; 
     font-size: 1.2rem; 
     font-weight: 900;
@@ -334,9 +360,9 @@ h1.bloody-title {
 }
 
 .btn-neon:hover {
-    background-color: #00ff00; 
+    background-color: var(--neon-green); 
     color: #000;
-    box-shadow: 0 0 35px rgba(0, 255, 0, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
 }
 
 /* SERVER STATUS */
@@ -350,11 +376,17 @@ h1.bloody-title {
 .status-dot {
     width: 10px; 
     height: 10px; 
-    background: #00ff00;
+    background: var(--neon-green);
     border-radius: 50%; 
     margin-right: 10px;
-    box-shadow: 0 0 10px #00ff00; 
+    box-shadow: 0 0 10px var(--neon-green); 
     animation: pulse 2s infinite;
+}
+
+.status-dot.offline {
+    background: var(--blood-red);
+    box-shadow: 0 0 10px var(--blood-red);
+    animation: none;
 }
 
 @keyframes pulse { 
@@ -417,8 +449,8 @@ h1.bloody-title {
     width: 100%; 
     padding: 12px; 
     margin: 10px 0;
-    background: rgba(0,0,0,0.7); 
-    border: 1px solid #333;
+    background: rgba(10, 10, 10, 0.8); 
+    border: 1px solid var(--border-color);
     color: #dcdcdc; 
     font-family: 'Roboto Mono', monospace;
     box-sizing: border-box;
@@ -428,7 +460,7 @@ h1.bloody-title {
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: #00ff00;
+    border-color: var(--neon-green);
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 

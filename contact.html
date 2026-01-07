@@ -18,6 +18,8 @@
         <a href="contact.html">Contact</a>
     </nav>
 
+    <div class="scanlines"></div>
+
     <!-- HEADER SECTION -->
     <header class="site-header">
         <div class="header-container">
@@ -43,7 +45,6 @@
         <div class="overlay">
             <div class="content-container">
                 <div class="full-title-wrapper">
-                    <img src="myLogo.png" alt="Biohazard Logo" class="logo-biohazard">
                     <div class="title-text-stack">
                         <h1 class="bloody-title">SOS SIGNAL</h1>
                         <p class="survival-text">CONTACT</p>
@@ -164,7 +165,7 @@
             if(document.getElementById('header-tagline')) document.getElementById('header-tagline').innerText = t.headerTagline;
             if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
             if(document.getElementById('info-title')) document.getElementById('info-title').innerHTML = t.infoTitle;
-            if(document.getElementById('info-body')) document.getElementById('info-body').innerHTML = t.infoBody;
+            if(document.getElementById('info-body')) typeWriter('info-body', t.infoBody);
             if(document.getElementById('form-title')) document.getElementById('form-title').innerHTML = t.formTitle;
             if(document.getElementById('callsign-input')) document.getElementById('callsign-input').placeholder = t.callsignPlaceholder;
             if(document.getElementById('email-input')) document.getElementById('email-input').placeholder = t.emailPlaceholder;
@@ -177,6 +178,57 @@
             if(document.getElementById('server-status-text')) document.getElementById('server-status-text').innerText = t.status;
             if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
         }
+
+        function typeWriter(elementId, text, speed = 15) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            element.innerHTML = '';
+            if (element.dataset.typing) clearTimeout(element.dataset.typing);
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    if (text.charAt(i) === '<') {
+                        let tagEnd = text.indexOf('>', i);
+                        if (tagEnd === -1) tagEnd = text.length;
+                        element.innerHTML += text.substring(i, tagEnd + 1);
+                        i = tagEnd + 1;
+                    } else {
+                        element.innerHTML += text.charAt(i);
+
+                        // Play sound effect
+                        const audio = new Audio('keystroke.mp3');
+                        audio.volume = 0.15;
+                        audio.play().catch(e => {});
+
+                        i++;
+                    }
+                    element.dataset.typing = setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        async function updateServerStatus() {
+            const dot = document.querySelector('.status-dot');
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('http://fivem.thelastworld.ca:30288/players.json')}`);
+                if (!response.ok) throw new Error('Network error');
+                const data = await response.json();
+                const players = JSON.parse(data.contents);
+                
+                if(dot) dot.classList.remove('offline');
+                document.getElementById('server-status-text').innerText = `COMMUNICATIONS ACTIVES - ${players.length} JOUEURS`;
+            } catch (e) { 
+                console.log("Status fetch failed", e);
+                if(dot) dot.classList.add('offline');
+                document.getElementById('server-status-text').innerText = "SIGNAL PERDU / OFFLINE";
+            }
+        }
+
+        window.onload = function() {
+            typeWriter('info-body', content[currentLang].infoBody);
+            updateServerStatus();
+        };
     </script>
 </body>
 </html>

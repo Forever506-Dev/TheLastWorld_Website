@@ -18,6 +18,20 @@
         <a href="contact.html">Contact</a>
     </nav>
 
+    <div class="scanlines"></div>
+
+    <!-- HEADER SECTION -->
+    <header class="site-header">
+        <div class="header-container">
+            <img src="myLogo.png" alt="The Last World Logo" class="header-logo-img">
+            <div class="header-title-section">
+                <h1 class="header-main-title">THE LAST WORLD</h1>
+                <h2 class="header-subtitle-text">SURVIVAL</h2>
+                <p id="header-tagline" class="header-tagline">SERVEUR FIVEM // SURVIVAL HORROR</p>
+            </div>
+        </div>
+    </header>
+
     <div class="bg-wrapper">
         <div class="lang-container" onclick="toggleLanguage()">
             <div class="lang-options">
@@ -31,7 +45,6 @@
         <div class="overlay">
             <div class="content-container">
                 <div class="full-title-wrapper">
-                    <img src="myLogo.png" alt="Biohazard Logo" class="logo-biohazard">
                     <div class="title-text-stack">
                         <h1 class="bloody-title">VISUAL LOGS</h1>
                         <p class="survival-text">GALLERY</p>
@@ -152,13 +165,64 @@
             
             if(document.getElementById('subtitle')) document.getElementById('subtitle').innerText = t.subtitle;
             if(document.getElementById('alert-title')) document.getElementById('alert-title').innerHTML = t.alertTitle;
-            if(document.getElementById('alert-body')) document.getElementById('alert-body').innerHTML = t.alertBody;
+            if(document.getElementById('alert-body')) typeWriter('alert-body', t.alertBody);
             if(document.getElementById('label-1')) document.getElementById('label-1').innerText = t.label1;
             if(document.getElementById('label-2')) document.getElementById('label-2').innerText = t.label2;
             if(document.getElementById('label-3')) document.getElementById('label-3').innerText = t.label3;
             if(document.getElementById('server-status-text')) document.getElementById('server-status-text').innerText = t.status;
             if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
         }
+
+        function typeWriter(elementId, text, speed = 15) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            element.innerHTML = '';
+            if (element.dataset.typing) clearTimeout(element.dataset.typing);
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    if (text.charAt(i) === '<') {
+                        let tagEnd = text.indexOf('>', i);
+                        if (tagEnd === -1) tagEnd = text.length;
+                        element.innerHTML += text.substring(i, tagEnd + 1);
+                        i = tagEnd + 1;
+                    } else {
+                        element.innerHTML += text.charAt(i);
+
+                        // Play sound effect
+                        const audio = new Audio('keystroke.mp3');
+                        audio.volume = 0.15;
+                        audio.play().catch(e => {});
+
+                        i++;
+                    }
+                    element.dataset.typing = setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        async function updateServerStatus() {
+            const dot = document.querySelector('.status-dot');
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('http://fivem.thelastworld.ca:30288/players.json')}`);
+                if (!response.ok) throw new Error('Network error');
+                const data = await response.json();
+                const players = JSON.parse(data.contents);
+                
+                if(dot) dot.classList.remove('offline');
+                document.getElementById('server-status-text').innerText = `ARCHIVES ACCESSIBLES - ${players.length} JOUEURS`;
+            } catch (e) { 
+                console.log("Status fetch failed", e);
+                if(dot) dot.classList.add('offline');
+                document.getElementById('server-status-text').innerText = "CONNEXION PERDUE / OFFLINE";
+            }
+        }
+
+        window.onload = function() {
+            typeWriter('alert-body', content[currentLang].alertBody);
+            updateServerStatus();
+        };
     </script>
 </body>
 </html>
