@@ -21,6 +21,15 @@
         <a href="guide.html">Installation</a>
         <a href="photos.html">Photos</a>
         <a href="contact.html">Contact</a>
+
+        <div class="lang-container" onclick="toggleLanguage()">
+            <div class="lang-options">
+                <span id="lang-fr" class="active-lang">FR</span> / <span id="lang-en">EN</span>
+            </div>
+            <svg class="globe-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z"/>
+            </svg>
+        </div>
     </nav>
 
     <div class="scanlines"></div>
@@ -39,15 +48,6 @@
     </header>
 
     <div class="bg-wrapper">
-        <div class="lang-container" onclick="toggleLanguage()">
-            <div class="lang-options">
-                <span id="lang-fr" class="active-lang">FR</span> / <span id="lang-en">EN</span>
-            </div>
-            <svg class="globe-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.78 20 8.65 20 12C20 14.08 19.2 15.97 17.9 17.39Z"/>
-            </svg>
-        </div>
-
         <div class="overlay">
             <div class="content-container">
                 <div class="full-title-wrapper">
@@ -109,13 +109,14 @@
 
     <footer>
         <div class="footer-content">
-            <p id="footer-rights">&copy; 2025 THE LAST WORLD. Tous droits réservés.</p>
+            <p id="footer-rights">&copy; 2025 TheLastWorld Survival. Tous droits réservés.</p>
             <p class="creators">
                 Dev Team : <span>Vincent Roussel</span>
             </p>
         </div>
     </footer>
 
+    <canvas id="matrix-canvas"></canvas>
     <script>
         let slideIndex = 1;
         let currentLang = 'fr';
@@ -129,7 +130,7 @@
                 label2: "Qualité",
                 label3: "Année",
                 status: "ARCHIVES ACCESSIBLES - v2.5.0",
-                footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
+                footer: "&copy; 2025 TheLastWorld Survival. Tous droits réservés."
             },
             en: {
                 subtitle: "PHOTOGRAPHIC ARCHIVES // QUARANTINE ZONE",
@@ -139,7 +140,7 @@
                 label2: "Quality",
                 label3: "Year",
                 status: "ARCHIVES ACCESSIBLE - v2.5.0",
-                footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
+                footer: "&copy; 2025 TheLastWorld Survival. All rights reserved."
             }
         };
 
@@ -228,6 +229,52 @@
             }
         }
 
+        // MATRIX RAIN EFFECT
+        function initMatrix() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            let mouseX = 0;
+            let mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    const x = i * fontSize;
+                    const y = drops[i] * fontSize;
+                    
+                    const dist = Math.hypot(x - mouseX, y - mouseY);
+                    if (dist < 100) ctx.fillStyle = '#ff5555';
+                    else ctx.fillStyle = '#cf0000';
+
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+            }
+            setInterval(draw, 33);
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
         window.onload = function() {
             const loader = document.getElementById('loading-screen');
             if (loader) {
@@ -245,6 +292,19 @@
                 });
             });
 
+            // CRT Power-off effect on link click
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && !href.startsWith('#') && !href.startsWith('javascript') && !href.startsWith('fivem')) {
+                        e.preventDefault();
+                        document.body.classList.add('crt-off');
+                        setTimeout(() => { window.location.href = href; }, 550);
+                    }
+                });
+            });
+
+            initMatrix();
             typeWriter('alert-body', content[currentLang].alertBody);
             updateServerStatus();
         };

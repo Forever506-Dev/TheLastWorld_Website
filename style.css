@@ -57,6 +57,16 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     gap: 40px;
 }
 
+/* MATRIX CANVAS */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.25;
+}
+
 .nav a {
     color: var(--neon-green); 
     font-size: 1.1rem; 
@@ -182,9 +192,10 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 /* LANGUAGE SELECTOR */
 .lang-container {
     position: absolute; 
-    top: 80px; 
+    top: 50%; 
     right: 40px; 
-    z-index: 100;
+    transform: translateY(-50%);
+    z-index: 10001;
     display: flex; 
     align-items: center; 
     gap: 15px; 
@@ -580,6 +591,10 @@ footer {
     .alert-terminal {
         max-width: 100%;
     }
+
+    .lang-container {
+        display: none; /* Hide on very small screens or adjust as needed */
+    }
 }
 
 /* LOADING SCREEN */
@@ -714,4 +729,15 @@ footer {
     20%, 80% { transform: translate3d(2px, 0, 0); }
     30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
     40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* CRT POWER OFF EFFECT */
+@keyframes turn-off {
+    0% { transform: scale(1, 1.3) translate3d(0, 0, 0); filter: brightness(1); opacity: 1; }
+    60% { transform: scale(1, 0.001) translate3d(0, 0, 0); filter: brightness(10); }
+    100% { animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06); transform: scale(0, 0.001) translate3d(0, 0, 0); opacity: 0; }
+}
+.crt-off {
+    animation: turn-off 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: forwards;
 }
