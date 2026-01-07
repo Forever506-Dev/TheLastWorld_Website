@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <div class="loading-text">CONNECTING...</div>
+    </div>
+
     <nav class="nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -226,6 +231,14 @@
         }
 
         window.onload = function() {
+            const loader = document.getElementById('loading-screen');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    setTimeout(() => loader.style.display = 'none', 1000);
+                }, 500);
+            }
+
             typeWriter('info-body', content[currentLang].infoBody);
             updateServerStatus();
         };

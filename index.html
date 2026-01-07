@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <div class="loading-text">INITIALIZING...</div>
+    </div>
+
     <nav class="nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -191,6 +196,14 @@
 
         // INITIALIZATION
         window.onload = function() {
+            const loader = document.getElementById('loading-screen');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    setTimeout(() => loader.style.display = 'none', 1000);
+                }, 500);
+            }
+
             typeWriter('alert-body', content[currentLang].alertBody);
             updateServerStatus();
             setInterval(updateServerStatus, 60000); // Refresh every minute
