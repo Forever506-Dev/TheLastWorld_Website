@@ -685,3 +685,33 @@ footer {
     0% { background-position: 0 0; }
     100% { background-position: 100px 100px; }
 }
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #050505; 
+    border-left: 1px solid #333;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--blood-red); 
+    border: 2px solid #050505;
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff0000; 
+    box-shadow: 0 0 10px var(--blood-red);
+}
+
+/* SHAKE EFFECT */
+.shake-active {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
