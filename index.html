@@ -24,6 +24,7 @@
     </nav>
 
     <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
 
     <!-- NEW HEADER SECTION -->
     <header class="site-header">
@@ -148,6 +149,7 @@
             if (element.dataset.typing) clearTimeout(element.dataset.typing);
             
             let i = 0;
+            document.body.classList.add('typing-active');
             function type() {
                 if (i < text.length) {
                     // Handle HTML tags (don't type them char by char)
@@ -167,6 +169,8 @@
                         i++;
                     }
                     element.dataset.typing = setTimeout(type, speed);
+                } else {
+                    document.body.classList.remove('typing-active');
                 }
             }
             type();
