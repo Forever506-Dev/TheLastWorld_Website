@@ -9,6 +9,7 @@
 }
 
 body {
+    background-color: #050505;
     background-color: var(--bg-dark);
     margin: 0; 
     padding: 0;
@@ -18,13 +19,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
-    cursor: url('cursor.png'), default; 
+    cursor: url('cursor.png'), auto; 
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 /* CURSEUR DE POINTAGE */
 a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
-    cursor: url('pointer.png'), pointer !important;
+    cursor: url('pointer.png'), pointer;
 }
 
 /* SCANLINES EFFECT */
@@ -138,6 +139,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 
 /* BACKGROUND WRAPPER */
 .bg-wrapper {
+    background-color: #111;
     background: url('fond.jpg') no-repeat center center/cover;
     flex: 1; 
     display: flex; 
@@ -227,7 +229,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 }
 
 h1.bloody-title {
-    font-family: 'Nosifer', cursive; 
+    font-family: 'Nosifer', 'Arial Black', cursive; 
     font-size: 4.5rem; 
     color: var(--blood-red); 
     margin: 0; 
