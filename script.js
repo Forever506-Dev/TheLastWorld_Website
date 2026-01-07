@@ -1,4 +1,4 @@
-// TYPEWRITER EFFECT
+11// TYPEWRITER EFFECT
 function typeWriter(elementId, text, speed = 15) {
     const element = document.getElementById(elementId);
     if (!element) return;
@@ -104,59 +104,6 @@ function initGlobalEffects() {
             }
         });
     });
-
-    const secretBtn = document.getElementById('secret-trigger');
-    const hackOverlay = document.getElementById('hack-overlay');
-    const bitDisplay = document.getElementById('bit-display');
-    const hackProgress = document.getElementById('hack-progress');
-    
-    if (secretBtn && hackOverlay) {
-        let gameActive = false;
-        let currentBit = 0;
-        let lockedBits = "";
-        let bitInterval;
-
-        secretBtn.addEventListener('click', () => {
-            hackOverlay.style.display = 'flex';
-            gameActive = true;
-            startBitStream();
-        });
-
-        function startBitStream() {
-            lockedBits = "";
-            hackProgress.innerText = "PROGRESS: " + lockedBits;
-            clearInterval(bitInterval);
-            bitInterval = setInterval(() => {
-                currentBit = Math.round(Math.random());
-                bitDisplay.innerText = currentBit;
-            }, 100);
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (!gameActive) return;
-            if (e.code === 'Space') {
-                e.preventDefault();
-                if (currentBit === 1) {
-                    lockedBits += "1";
-                    hackProgress.innerText = "PROGRESS: " + lockedBits;
-                    if (lockedBits.length === 8) {
-                        gameActive = false;
-                        clearInterval(bitInterval);
-                        hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
-                        hackProgress.style.color = "#0f0";
-                        setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
-                    }
-                } else {
-                    hackProgress.innerText = "FAILED - RETRYING...";
-                    hackProgress.style.color = "red";
-                    setTimeout(() => { 
-                        hackProgress.style.color = "#0f0"; 
-                        startBitStream(); 
-                    }, 1000);
-                }
-            }
-        });
-    }
 }
 
 // SERVER STATUS FETCH
