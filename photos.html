@@ -15,6 +15,15 @@
         <div class="loading-text">LOADING ARCHIVES...</div>
     </div>
 
+    <div id="hack-overlay">
+        <div class="hack-container">
+            <div class="hack-message">SYSTEM BREACH DETECTED</div>
+            <div class="hack-message">PRESS [SPACE] TO LOCK BIT '1'</div>
+            <div id="bit-display" class="bit-stream">0</div>
+            <div id="hack-progress">TARGET: 11111111</div>
+        </div>
+    </div>
+
     <nav class="nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -112,7 +121,6 @@
             <p id="footer-rights">&copy; 2025 TheLastWorld Survival. Tous droits réservés.</p>
             <p class="creators">
                 Dev Team : <span>Vincent Roussel</span>
-            </p>
         </div>
     </footer>
 
@@ -302,6 +310,57 @@
                         setTimeout(() => { window.location.href = href; }, 550);
                     }
                 });
+            });
+
+            // HACKING GAME
+            const secretBtn = document.getElementById('secret-trigger');
+            const hackOverlay = document.getElementById('hack-overlay');
+            const bitDisplay = document.getElementById('bit-display');
+            const hackProgress = document.getElementById('hack-progress');
+            let gameActive = false;
+            let currentBit = 0;
+            let lockedBits = "";
+            let bitInterval;
+
+            secretBtn.addEventListener('click', () => {
+                hackOverlay.style.display = 'flex';
+                gameActive = true;
+                startBitStream();
+            });
+
+            function startBitStream() {
+                lockedBits = "";
+                hackProgress.innerText = "PROGRESS: " + lockedBits;
+                clearInterval(bitInterval);
+                bitInterval = setInterval(() => {
+                    currentBit = Math.round(Math.random());
+                    bitDisplay.innerText = currentBit;
+                }, 100);
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (!gameActive) return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (currentBit === 1) {
+                        lockedBits += "1";
+                        hackProgress.innerText = "PROGRESS: " + lockedBits;
+                        if (lockedBits.length === 8) {
+                            gameActive = false;
+                            clearInterval(bitInterval);
+                            hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
+                            hackProgress.style.color = "#0f0";
+                            setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
+                        }
+                    } else {
+                        hackProgress.innerText = "FAILED - RETRYING...";
+                        hackProgress.style.color = "red";
+                        setTimeout(() => { 
+                            hackProgress.style.color = "#0f0"; 
+                            startBitStream(); 
+                        }, 1000);
+                    }
+                }
             });
 
             initMatrix();

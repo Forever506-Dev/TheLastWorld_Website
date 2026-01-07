@@ -10,9 +10,18 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <div class="loading-text">INITIALIZING...</div>
+    <div id="bios-screen">
+        <div id="bios-text"></div>
+        <div id="click-to-start" style="display:none;">[ PRESS ANY KEY OR CLICK TO INITIALIZE SYSTEM ]</div>
+    </div>
+
+    <div id="hack-overlay">
+        <div class="hack-container">
+            <div class="hack-message">SYSTEM BREACH DETECTED</div>
+            <div class="hack-message">PRESS [SPACE] TO LOCK BIT '1'</div>
+            <div id="bit-display" class="bit-stream">0</div>
+            <div id="hack-progress">TARGET: 11111111</div>
+        </div>
     </div>
 
     <nav class="nav">
@@ -88,7 +97,7 @@
         <div class="footer-content">
             <p id="footer-rights">&copy; 2025 TheLastWorld Survival. Tous droits réservés.</p>
             <p class="creators">
-                Dev Team : <span>Vincent Roussel</span>
+                Dev Team : <span>Vincent Roussel</span><span id="secret-trigger" class="secret-btn">π</span>
             </p>
         </div>
     </footer>
@@ -247,13 +256,55 @@
 
         // INITIALIZATION
         window.onload = function() {
-            const loader = document.getElementById('loading-screen');
-            if (loader) {
-                setTimeout(() => {
-                    loader.classList.add('fade-out');
-                    setTimeout(() => loader.style.display = 'none', 1000);
-                }, 500);
+            // BIOS BOOT SEQUENCE
+            const biosText = document.getElementById('bios-text');
+            const startBtn = document.getElementById('click-to-start');
+            const biosScreen = document.getElementById('bios-screen');
+            
+            const lines = [
+                "BIOS Date 01/15/25 14:22:51 Ver: 1.0.2",
+                "CPU: Quantum Core i9-14900K @ 6.0GHz",
+                "Memory Test: 65536K OK",
+                "Detecting Primary Master... The Last World Server",
+                "Detecting Secondary Master... None",
+                "Booting from Network...",
+                "Loading Kernel...",
+                "Verifying System Integrity...",
+                "Loading Resources... [OK]",
+                "Initializing Audio Subsystem... [WAITING FOR INPUT]"
+            ];
+
+            let lineIndex = 0;
+            function printLine() {
+                if(lineIndex < lines.length) {
+                    biosText.innerHTML += lines[lineIndex] + "<br>";
+                    lineIndex++;
+                    setTimeout(printLine, 150);
+                } else {
+                    startBtn.style.display = 'block';
+                    document.body.addEventListener('click', startSystem);
+                    document.body.addEventListener('keydown', startSystem);
+                }
             }
+
+            function startSystem() {
+                document.body.removeEventListener('click', startSystem);
+                document.body.removeEventListener('keydown', startSystem);
+                
+                // Unlock Audio Context
+                const audio = new Audio('keystroke.mp3');
+                audio.volume = 0.0;
+                audio.play().catch(e => {});
+
+                biosScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    biosScreen.style.display = 'none';
+                    // Start main site effects
+                    typeWriter('alert-body', content[currentLang].alertBody);
+                }, 800);
+            }
+
+            setTimeout(printLine, 500);
 
             // Add shake effect to buttons
             document.querySelectorAll('button, .btn-neon, a.btn-neon').forEach(btn => {
@@ -275,8 +326,58 @@
                 });
             });
 
+            // HACKING GAME
+            const secretBtn = document.getElementById('secret-trigger');
+            const hackOverlay = document.getElementById('hack-overlay');
+            const bitDisplay = document.getElementById('bit-display');
+            const hackProgress = document.getElementById('hack-progress');
+            let gameActive = false;
+            let currentBit = 0;
+            let lockedBits = "";
+            let bitInterval;
+
+            secretBtn.addEventListener('click', () => {
+                hackOverlay.style.display = 'flex';
+                gameActive = true;
+                startBitStream();
+            });
+
+            function startBitStream() {
+                lockedBits = "";
+                hackProgress.innerText = "PROGRESS: " + lockedBits;
+                clearInterval(bitInterval);
+                bitInterval = setInterval(() => {
+                    currentBit = Math.round(Math.random());
+                    bitDisplay.innerText = currentBit;
+                }, 100);
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (!gameActive) return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (currentBit === 1) {
+                        lockedBits += "1";
+                        hackProgress.innerText = "PROGRESS: " + lockedBits;
+                        if (lockedBits.length === 8) {
+                            gameActive = false;
+                            clearInterval(bitInterval);
+                            hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
+                            hackProgress.style.color = "#0f0";
+                            setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
+                        }
+                    } else {
+                        hackProgress.innerText = "FAILED - RETRYING...";
+                        hackProgress.style.color = "red";
+                        setTimeout(() => { 
+                            hackProgress.style.color = "#0f0"; 
+                            startBitStream(); 
+                        }, 1000);
+                    }
+                }
+            });
+
             initMatrix();
-            typeWriter('alert-body', content[currentLang].alertBody);
             updateServerStatus();
             setInterval(updateServerStatus, 60000); // Refresh every minute
         };

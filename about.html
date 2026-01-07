@@ -15,6 +15,15 @@
         <div class="loading-text">LOADING...</div>
     </div>
 
+    <div id="hack-overlay">
+        <div class="hack-container">
+            <div class="hack-message">SYSTEM BREACH DETECTED</div>
+            <div class="hack-message">PRESS [SPACE] TO LOCK BIT '1'</div>
+            <div id="bit-display" class="bit-stream">0</div>
+            <div id="hack-progress">TARGET: 11111111</div>
+        </div>
+    </div>
+
     <nav class="nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -51,11 +60,17 @@
         <div class="overlay">
             <div class="content-container">
                 <div class="alert-terminal">
-                    <div id="alert-title" class="alert-header">⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE</div>
+                    <div id="alert-title" class="alert-header">📂 DOSSIER: THE_LAST_WORLD</div>
                     <p id="alert-body" class="alert-text">
-                        Zone de quarantaine active. Infection généralisée.<br>
-                        Le monde tel que tu le connaissais n'existe plus.<br><br>
-                        Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.
+                        <span class="highlight-danger">>> ANNÉE 2025.</span> Le virus X-99 a décimé 90% de la population mondiale. Les infrastructures se sont effondrées.<br><br>
+                        
+                        <span style="color: #00ff00;">// CARACTÉRISTIQUES DU SERVEUR:</span><br>
+                        • <span style="font-weight:bold;">Survie Hardcore:</span> Faim, soif, maladie et radiations.<br>
+                        • <span style="font-weight:bold;">Économie Réaliste:</span> Troc, rareté des ressources, craft.<br>
+                        • <span style="font-weight:bold;">Factions:</span> Créez votre groupe ou rejoignez l'armée.<br>
+                        • <span style="font-weight:bold;">Base Building:</span> Fortifiez vos abris contre les hordes.<br><br>
+                        
+                        Votre seul objectif: <span class="highlight-danger">SURVIVRE À TOUT PRIX.</span>
                     </p>
                 </div>
 
@@ -88,7 +103,7 @@
         <div class="footer-content">
             <p id="footer-rights">&copy; 2025 TheLastWorld Survival. Tous droits réservés.</p>
             <p class="creators">
-                Dev Team : <span>Vincent Roussel</span>
+                Dev Team : <span>Vincent Roussel</span><span id="secret-trigger" class="secret-btn">π</span>
             </p>
         </div>
     </footer>
@@ -100,8 +115,14 @@
         const content = {
             fr: {
                 headerTagline: "SERVEUR FIVEM // SURVIVAL HORROR",
-                alertTitle: "⚠ SYSTEM_MESSAGE: ETAT_CRITIQUE",
-                alertBody: `Zone de quarantaine active. Infection généralisée.<br>Le monde tel que tu le connaissais n'existe plus.<br><br>Méfiez-vous des <span class="highlight-danger">ZOMBIES</span> et des autres <span class="highlight-danger">SURVIVANTS</span>.`, 
+                alertTitle: "📂 DOSSIER: THE_LAST_WORLD",
+                alertBody: `<span class="highlight-danger">>> ANNÉE 2025.</span> Le virus X-99 a décimé 90% de la population mondiale. Les infrastructures se sont effondrées.<br><br>
+                        <span style="color: #00ff00;">// CARACTÉRISTIQUES DU SERVEUR:</span><br>
+                        • <span style="font-weight:bold;">Survie Hardcore:</span> Faim, soif, maladie et radiations.<br>
+                        • <span style="font-weight:bold;">Économie Réaliste:</span> Troc, rareté des ressources, craft.<br>
+                        • <span style="font-weight:bold;">Factions:</span> Créez votre groupe ou rejoignez l'armée.<br>
+                        • <span style="font-weight:bold;">Base Building:</span> Fortifiez vos abris contre les hordes.<br><br>
+                        Votre seul objectif: <span class="highlight-danger">SURVIVRE À TOUT PRIX.</span>`, 
                 labelPlayers: "Joueurs Actifs",
                 labelInfection: "Taux d'infection",
                 labelHordes: "Hordes",
@@ -111,8 +132,14 @@
             },
             en: {
                 headerTagline: "FIVEM SERVER // SURVIVAL HORROR",
-                alertTitle: "⚠ SYSTEM_MESSAGE: CRITICAL_STATUS",
-                alertBody: `Quarantine zone active. Widespread infection.<br>The world as you knew it is gone.<br><br>Beware of <span class="highlight-danger">ZOMBIES</span> and other <span class="highlight-danger">SURVIVORS</span>.`, 
+                alertTitle: "📂 FILE: THE_LAST_WORLD",
+                alertBody: `<span class="highlight-danger">>> YEAR 2025.</span> The X-99 virus has wiped out 90% of the global population. Infrastructure has collapsed.<br><br>
+                        <span style="color: #00ff00;">// SERVER FEATURES:</span><br>
+                        • <span style="font-weight:bold;">Hardcore Survival:</span> Hunger, thirst, disease, and radiation.<br>
+                        • <span style="font-weight:bold;">Realistic Economy:</span> Bartering, resource scarcity, crafting.<br>
+                        • <span style="font-weight:bold;">Factions:</span> Create your group or join the military.<br>
+                        • <span style="font-weight:bold;">Base Building:</span> Fortify your shelters against hordes.<br><br>
+                        Your only goal: <span class="highlight-danger">SURVIVE AT ALL COSTS.</span>`, 
                 labelPlayers: "Active Players",
                 labelInfection: "Infection Rate",
                 labelHordes: "Hordes",
@@ -266,6 +293,57 @@
                         setTimeout(() => { window.location.href = href; }, 550);
                     }
                 });
+            });
+
+            // HACKING GAME
+            const secretBtn = document.getElementById('secret-trigger');
+            const hackOverlay = document.getElementById('hack-overlay');
+            const bitDisplay = document.getElementById('bit-display');
+            const hackProgress = document.getElementById('hack-progress');
+            let gameActive = false;
+            let currentBit = 0;
+            let lockedBits = "";
+            let bitInterval;
+
+            secretBtn.addEventListener('click', () => {
+                hackOverlay.style.display = 'flex';
+                gameActive = true;
+                startBitStream();
+            });
+
+            function startBitStream() {
+                lockedBits = "";
+                hackProgress.innerText = "PROGRESS: " + lockedBits;
+                clearInterval(bitInterval);
+                bitInterval = setInterval(() => {
+                    currentBit = Math.round(Math.random());
+                    bitDisplay.innerText = currentBit;
+                }, 100);
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (!gameActive) return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (currentBit === 1) {
+                        lockedBits += "1";
+                        hackProgress.innerText = "PROGRESS: " + lockedBits;
+                        if (lockedBits.length === 8) {
+                            gameActive = false;
+                            clearInterval(bitInterval);
+                            hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
+                            hackProgress.style.color = "#0f0";
+                            setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
+                        }
+                    } else {
+                        hackProgress.innerText = "FAILED - RETRYING...";
+                        hackProgress.style.color = "red";
+                        setTimeout(() => { 
+                            hackProgress.style.color = "#0f0"; 
+                            startBitStream(); 
+                        }, 1000);
+                    }
+                }
             });
 
             initMatrix();

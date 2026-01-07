@@ -15,6 +15,15 @@
         <div class="loading-text">ACCESSING...</div>
     </div>
 
+    <div id="hack-overlay">
+        <div class="hack-container">
+            <div class="hack-message">SYSTEM BREACH DETECTED</div>
+            <div class="hack-message">PRESS [SPACE] TO LOCK BIT '1'</div>
+            <div id="bit-display" class="bit-stream">0</div>
+            <div id="hack-progress">TARGET: 11111111</div>
+        </div>
+    </div>
+
     <nav class="nav">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -127,9 +136,9 @@
 
     <footer>
         <div class="footer-content">
-            <p id="footer-rights">&copy; 2025 TheLastWorld Survival. Tous droits réservés.</p>
+            <p id="footer-rights">&copy; 2025 THE LAST WORLD. Tous droits réservés.</p>
             <p class="creators">
-                Dev Team : <span>Vincent Roussel</span>
+                Dev Team : <span>Vincent Roussel</span><span id="secret-trigger" class="secret-btn">π</span>
             </p>
         </div>
     </footer>
@@ -160,7 +169,7 @@
                 label3: "Accès",
                 btnConnect: "SE CONNECTER",
                 status: "SYSTEME OPÉRATIONNEL - v2.5.0",
-                footer: "&copy; 2025 TheLastWorld Survival. Tous droits réservés."
+                footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
             },
             en: {
                 subtitle: "ENTRY PROCEDURE // QUARANTINE ZONE",
@@ -184,7 +193,7 @@
                 label3: "Access",
                 btnConnect: "CONNECT NOW",
                 status: "SYSTEM OPERATIONAL - v2.5.0",
-                footer: "&copy; 2025 TheLastWorld Survival. All rights reserved."
+                footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
             }
         };
 
@@ -222,27 +231,14 @@
             const columns = canvas.width / fontSize;
             const drops = Array(Math.floor(columns)).fill(1);
 
-            let mouseX = 0;
-            let mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
             function draw() {
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#cf0000'; // Blood Red Text
                 ctx.font = fontSize + 'px monospace';
 
                 for (let i = 0; i < drops.length; i++) {
                     const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    const x = i * fontSize;
-                    const y = drops[i] * fontSize;
-                    
-                    const dist = Math.hypot(x - mouseX, y - mouseY);
-                    if (dist < 100) ctx.fillStyle = '#ff5555';
-                    else ctx.fillStyle = '#cf0000';
-
                     ctx.fillText(text, i * fontSize, drops[i] * fontSize);
                     if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                     drops[i]++;
@@ -272,17 +268,57 @@
                 });
             });
 
-            // CRT Power-off effect on link click
-            document.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href && !href.startsWith('#') && !href.startsWith('javascript') && !href.startsWith('fivem')) {
-                        e.preventDefault();
-                        document.body.classList.add('crt-off');
-                        setTimeout(() => { window.location.href = href; }, 550);
-                    }
-                });
+            // HACKING GAME
+            const secretBtn = document.getElementById('secret-trigger');
+            const hackOverlay = document.getElementById('hack-overlay');
+            const bitDisplay = document.getElementById('bit-display');
+            const hackProgress = document.getElementById('hack-progress');
+            let gameActive = false;
+            let currentBit = 0;
+            let lockedBits = "";
+            let bitInterval;
+
+            secretBtn.addEventListener('click', () => {
+                hackOverlay.style.display = 'flex';
+                gameActive = true;
+                startBitStream();
             });
+
+            function startBitStream() {
+                lockedBits = "";
+                hackProgress.innerText = "PROGRESS: " + lockedBits;
+                clearInterval(bitInterval);
+                bitInterval = setInterval(() => {
+                    currentBit = Math.round(Math.random());
+                    bitDisplay.innerText = currentBit;
+                }, 100);
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (!gameActive) return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (currentBit === 1) {
+                        lockedBits += "1";
+                        hackProgress.innerText = "PROGRESS: " + lockedBits;
+                        if (lockedBits.length === 8) {
+                            gameActive = false;
+                            clearInterval(bitInterval);
+                            hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
+                            hackProgress.style.color = "#0f0";
+                            setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
+                        }
+                    } else {
+                        hackProgress.innerText = "FAILED - RETRYING...";
+                        hackProgress.style.color = "red";
+                        setTimeout(() => { 
+                            hackProgress.style.color = "#0f0"; 
+                            startBitStream(); 
+                        }, 1000);
+                    }
+                }
+            });
+
             initMatrix();
         };
     </script>

@@ -178,7 +178,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     display: flex; 
     align-items: center;
     position: relative; 
-    z-index: 1;
+    z-index: 2;
 }
 
 .content-container {
@@ -657,23 +657,23 @@ footer {
 @keyframes glitch-text {
     0% {
         text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
-        transform: translate(0) skew(0deg);
+        transform: translate(0) skew(0deg); opacity: 1;
     }
     20% {
         text-shadow: 4px 4px 0px #000, -3px 0 var(--neon-green), 3px 0 var(--blood-red);
-        transform: translate(-4px, 2px) skew(-10deg);
+        transform: translate(-4px, 2px) skew(-10deg); opacity: 0.8;
     }
     22% {
         text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
-        transform: translate(0) skew(0deg);
+        transform: translate(0) skew(0deg); opacity: 1;
     }
     60% {
         text-shadow: 4px 4px 0px #000, 3px 0 var(--neon-green), -3px 0 var(--blood-red);
-        transform: translate(4px, -2px) skew(10deg);
+        transform: translate(4px, -2px) skew(10deg); opacity: 0.9;
     }
     62%, 100% {
         text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
-        transform: translate(0) skew(0deg);
+        transform: translate(0) skew(0deg); opacity: 1;
     }
 }
 
@@ -741,3 +741,69 @@ footer {
     animation: turn-off 0.55s cubic-bezier(0.23, 1, 0.32, 1);
     animation-fill-mode: forwards;
 }
+
+/* BIOS BOOT SCREEN */
+#bios-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #dcdcdc;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 100000;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#click-to-start {
+    color: var(--neon-green);
+    font-weight: bold;
+    animation: blink 0.5s infinite;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* HACKING MINI-GAME */
+#hack-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 100000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Courier New', monospace;
+    color: #0f0;
+}
+
+.hack-container {
+    text-align: center;
+    border: 2px solid #0f0;
+    padding: 40px;
+    background: #000;
+    box-shadow: 0 0 20px #0f0;
+}
+
+.bit-stream {
+    font-size: 2rem;
+    margin: 20px 0;
+    letter-spacing: 5px;
+}
+
+.hack-message { margin-bottom: 20px; font-weight: bold; }
+
+.secret-btn {
+    opacity: 0.1;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 0.8rem;
+    transition: opacity 0.3s;
+}
+.secret-btn:hover { opacity: 1; color: var(--blood-red); }
