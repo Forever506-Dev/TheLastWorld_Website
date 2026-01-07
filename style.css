@@ -744,17 +744,6 @@ footer {
     40%, 60% { transform: translate3d(4px, 0, 0); }
 }
 
-/* CRT POWER OFF EFFECT */
-@keyframes turn-off {
-    0% { transform: scale(1, 1.3) translate3d(0, 0, 0); filter: brightness(1); opacity: 1; }
-    60% { transform: scale(1, 0.001) translate3d(0, 0, 0); filter: brightness(10); }
-    100% { animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06); transform: scale(0, 0.001) translate3d(0, 0, 0); opacity: 0; }
-}
-.crt-off {
-    animation: turn-off 0.55s cubic-bezier(0.23, 1, 0.32, 1);
-    animation-fill-mode: forwards;
-}
-
 /* LIGHTBOX */
 .lightbox {
     display: none;

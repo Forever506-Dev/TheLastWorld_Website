@@ -93,17 +93,6 @@ function initGlobalEffects() {
             setTimeout(() => document.body.classList.remove('shake-active'), 500);
         });
     });
-
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && !href.startsWith('#') && !href.startsWith('javascript') && !href.startsWith('fivem')) {
-                e.preventDefault();
-                document.body.classList.add('crt-off');
-                setTimeout(() => { window.location.href = href; }, 550);
-            }
-        });
-    });
 }
 
 // SERVER STATUS FETCH
