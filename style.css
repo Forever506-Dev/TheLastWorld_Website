@@ -173,7 +173,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 }
 
 .overlay {
-    background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.5) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.95) 100%);
     width: 100%; 
     min-height: 100%;
     height: auto;
