@@ -64,7 +64,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     left: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 1.00;
+    opacity: 50.0;
 }
 
 .nav a {
@@ -205,7 +205,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .globe-icon {
     width: 32px; 
     height: 32px; 
-    fill: #666; 
+    fill: #ff0000; 
     transition: all 0.3s ease;
 }
 
