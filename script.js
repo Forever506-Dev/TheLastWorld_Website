@@ -52,9 +52,13 @@ function initMatrix() {
     });
 
     function draw() {
+        ctx.shadowBlur = 0;
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
         ctx.font = fontSize + 'px monospace';
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#cf0000';
 
         for (let i = 0; i < drops.length; i++) {
             const text = chars.charAt(Math.floor(Math.random() * chars.length));
@@ -86,6 +90,15 @@ function initGlobalEffects() {
             setTimeout(() => loader.style.display = 'none', 1000);
         }, 500);
     }
+
+    // Auto-resize Textarea
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(tx => {
+        tx.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
 }
 
 // SERVER STATUS FETCH

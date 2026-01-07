@@ -64,7 +64,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     left: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.25;
+    opacity: 0.35;
 }
 
 .nav a {
@@ -104,12 +104,13 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 }
 
 .header-logo-img {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     border: 2px solid var(--blood-red);
     border-radius: 35px;
     box-shadow: 0 0 15px rgba(207, 0, 0, 0.3);
+    transition: transform 0.3s ease;
 }
 
 .header-title-section {
@@ -125,16 +126,17 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     letter-spacing: 3px;
     line-height: 1;
     text-transform: uppercase;
-    animation: glitch-text 4s infinite;
 }
 
 .header-subtitle-text {
-    font-family: 'Nosifer', cursive;
+    font-family: 'Roboto Mono', monospace;
     font-size: 2.5rem;
-    color: var(--blood-red);
+    color: #888;
     margin: -10px 0 0 0;
-    text-shadow: 3px 3px 0px #000;
+    text-shadow: 0 0 10px var(--blood-red);
     letter-spacing: 8px;
+    font-weight: 700;
+    animation: heartbeat 3s infinite ease-in-out;
 }
 
 .header-tagline {
@@ -173,7 +175,8 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .overlay {
     background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.5) 100%);
     width: 100%; 
-    height: 100%;
+    min-height: 100%;
+    height: auto;
     padding: 60px 0;
     display: flex; 
     align-items: center;
@@ -512,6 +515,8 @@ h1.bloody-title {
     font-family: 'Roboto Mono', monospace;
     box-sizing: border-box;
     font-size: 0.95rem;
+    resize: vertical;
+    overflow: hidden;
 }
 
 .contact-form input:focus,
@@ -691,6 +696,20 @@ footer {
     100% { transform: scale(1.15); }
 }
 
+@keyframes heartbeat {
+    0%, 100% { text-shadow: 0 0 10px var(--blood-red); }
+    50% { text-shadow: 0 0 25px var(--blood-red), 0 0 15px rgba(207, 0, 0, 0.5); }
+}
+
+@keyframes gentle-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+    75% { transform: rotate(1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+
 @keyframes glitch-text {
     0% {
         text-shadow: 4px 4px 0px #000, 0 0 20px rgba(207, 0, 0, 0.8);
@@ -742,6 +761,10 @@ footer {
     20%, 80% { transform: translate3d(2px, 0, 0); }
     30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
     40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.header-logo-img:hover {
+    animation: gentle-shake 0.5s infinite;
 }
 
 /* LIGHTBOX */
