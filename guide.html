@@ -144,6 +144,7 @@
     </footer>
 
     <canvas id="matrix-canvas"></canvas>
+    <script src="script.js"></script>
     <script>
         let currentLang = 'fr';
         const content = {
@@ -169,7 +170,7 @@
                 label3: "Accès",
                 btnConnect: "SE CONNECTER",
                 status: "SYSTEME OPÉRATIONNEL - v2.5.0",
-                footer: "&copy; 2025 THE LAST WORLD. Tous droits réservés."
+                footer: "&copy; 2025 <span class='footer-brand'>TheLastWorld Survival</span>. Tous droits réservés."
             },
             en: {
                 subtitle: "ENTRY PROCEDURE // QUARANTINE ZONE",
@@ -193,7 +194,7 @@
                 label3: "Access",
                 btnConnect: "CONNECT NOW",
                 status: "SYSTEM OPERATIONAL - v2.5.0",
-                footer: "&copy; 2025 THE LAST WORLD. All rights reserved."
+                footer: "&copy; 2025 <span class='footer-brand'>TheLastWorld Survival</span>. All rights reserved."
             }
         };
 
@@ -218,107 +219,8 @@
             if(document.getElementById('footer-rights')) document.getElementById('footer-rights').innerHTML = t.footer;
         }
 
-        // MATRIX RAIN EFFECT
-        function initMatrix() {
-            const canvas = document.getElementById('matrix-canvas');
-            const ctx = canvas.getContext('2d');
-
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
-            const fontSize = 14;
-            const columns = canvas.width / fontSize;
-            const drops = Array(Math.floor(columns)).fill(1);
-
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#cf0000'; // Blood Red Text
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                }
-            }
-            setInterval(draw, 33);
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-        }
-
         window.onload = function() {
-            const loader = document.getElementById('loading-screen');
-            if (loader) {
-                setTimeout(() => {
-                    loader.classList.add('fade-out');
-                    setTimeout(() => loader.style.display = 'none', 1000);
-                }, 500);
-            }
-
-            // Add shake effect to buttons
-            document.querySelectorAll('button, .btn-neon, a.btn-neon').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.body.classList.add('shake-active');
-                    setTimeout(() => document.body.classList.remove('shake-active'), 500);
-                });
-            });
-
-            // HACKING GAME
-            const secretBtn = document.getElementById('secret-trigger');
-            const hackOverlay = document.getElementById('hack-overlay');
-            const bitDisplay = document.getElementById('bit-display');
-            const hackProgress = document.getElementById('hack-progress');
-            let gameActive = false;
-            let currentBit = 0;
-            let lockedBits = "";
-            let bitInterval;
-
-            secretBtn.addEventListener('click', () => {
-                hackOverlay.style.display = 'flex';
-                gameActive = true;
-                startBitStream();
-            });
-
-            function startBitStream() {
-                lockedBits = "";
-                hackProgress.innerText = "PROGRESS: " + lockedBits;
-                clearInterval(bitInterval);
-                bitInterval = setInterval(() => {
-                    currentBit = Math.round(Math.random());
-                    bitDisplay.innerText = currentBit;
-                }, 100);
-            }
-
-            document.addEventListener('keydown', (e) => {
-                if (!gameActive) return;
-                if (e.code === 'Space') {
-                    e.preventDefault();
-                    if (currentBit === 1) {
-                        lockedBits += "1";
-                        hackProgress.innerText = "PROGRESS: " + lockedBits;
-                        if (lockedBits.length === 8) {
-                            gameActive = false;
-                            clearInterval(bitInterval);
-                            hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
-                            hackProgress.style.color = "#0f0";
-                            setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
-                        }
-                    } else {
-                        hackProgress.innerText = "FAILED - RETRYING...";
-                        hackProgress.style.color = "red";
-                        setTimeout(() => { 
-                            hackProgress.style.color = "#0f0"; 
-                            startBitStream(); 
-                        }, 1000);
-                    }
-                }
-            });
-
+            initGlobalEffects();
             initMatrix();
         };
     </script>

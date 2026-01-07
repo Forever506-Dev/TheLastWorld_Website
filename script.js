@@ -1,0 +1,174 @@
+// TYPEWRITER EFFECT
+function typeWriter(elementId, text, speed = 15) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    element.innerHTML = '';
+    if (element.dataset.typing) clearTimeout(element.dataset.typing);
+    
+    let i = 0;
+    document.body.classList.add('typing-active');
+    function type() {
+        if (i < text.length) {
+            if (text.charAt(i) === '<') {
+                let tagEnd = text.indexOf('>', i);
+                if (tagEnd === -1) tagEnd = text.length;
+                element.innerHTML += text.substring(i, tagEnd + 1);
+                i = tagEnd + 1;
+            } else {
+                element.innerHTML += text.charAt(i);
+                const audio = new Audio('keystroke.mp3');
+                audio.volume = 0.15;
+                audio.play().catch(e => {});
+                i++;
+            }
+            element.dataset.typing = setTimeout(type, speed);
+        } else {
+            document.body.classList.remove('typing-active');
+        }
+    }
+    type();
+}
+
+// MATRIX RAIN EFFECT
+function initMatrix() {
+    const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+            
+            const dist = Math.hypot(x - mouseX, y - mouseY);
+            if (dist < 100) ctx.fillStyle = '#ff5555';
+            else ctx.fillStyle = '#cf0000';
+
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 33);
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+}
+
+// GLOBAL EFFECTS (Loading, Shake, CRT, Hacking)
+function initGlobalEffects() {
+    const loader = document.getElementById('loading-screen');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => loader.style.display = 'none', 1000);
+        }, 500);
+    }
+
+    document.querySelectorAll('button, .btn-neon, a.btn-neon').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.body.classList.add('shake-active');
+            setTimeout(() => document.body.classList.remove('shake-active'), 500);
+        });
+    });
+
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript') && !href.startsWith('fivem')) {
+                e.preventDefault();
+                document.body.classList.add('crt-off');
+                setTimeout(() => { window.location.href = href; }, 550);
+            }
+        });
+    });
+
+    const secretBtn = document.getElementById('secret-trigger');
+    const hackOverlay = document.getElementById('hack-overlay');
+    const bitDisplay = document.getElementById('bit-display');
+    const hackProgress = document.getElementById('hack-progress');
+    
+    if (secretBtn && hackOverlay) {
+        let gameActive = false;
+        let currentBit = 0;
+        let lockedBits = "";
+        let bitInterval;
+
+        secretBtn.addEventListener('click', () => {
+            hackOverlay.style.display = 'flex';
+            gameActive = true;
+            startBitStream();
+        });
+
+        function startBitStream() {
+            lockedBits = "";
+            hackProgress.innerText = "PROGRESS: " + lockedBits;
+            clearInterval(bitInterval);
+            bitInterval = setInterval(() => {
+                currentBit = Math.round(Math.random());
+                bitDisplay.innerText = currentBit;
+            }, 100);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!gameActive) return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (currentBit === 1) {
+                    lockedBits += "1";
+                    hackProgress.innerText = "PROGRESS: " + lockedBits;
+                    if (lockedBits.length === 8) {
+                        gameActive = false;
+                        clearInterval(bitInterval);
+                        hackProgress.innerText = "ACCESS GRANTED - WELCOME ADMIN";
+                        hackProgress.style.color = "#0f0";
+                        setTimeout(() => { hackOverlay.style.display = 'none'; }, 2000);
+                    }
+                } else {
+                    hackProgress.innerText = "FAILED - RETRYING...";
+                    hackProgress.style.color = "red";
+                    setTimeout(() => { 
+                        hackProgress.style.color = "#0f0"; 
+                        startBitStream(); 
+                    }, 1000);
+                }
+            }
+        });
+    }
+}
+
+// SERVER STATUS FETCH
+async function fetchPlayerCount() {
+    try {
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('http://fivem.thelastworld.ca:30288/players.json')}`);
+        if (!response.ok) throw new Error('Network error');
+        const data = await response.json();
+        const players = JSON.parse(data.contents);
+        return players.length;
+    } catch (e) {
+        console.log("Status fetch failed", e);
+        return null;
+    }
+}
