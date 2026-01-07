@@ -78,9 +78,6 @@
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
 
-                <div class="thumbnail-row">
-                </div>
-
                 <div class="stats-grid">
                     <div class="stat-card">
                         <span class="stat-val" id="current-image">1/3</span>
@@ -120,7 +117,6 @@
         // DYNAMIC GALLERY GENERATION
         const totalImages = 33;
         const slideContainer = document.querySelector('.slideshow-container');
-        const thumbContainer = document.querySelector('.thumbnail-row');
         const prevBtn = slideContainer.querySelector('.prev');
 
         for (let i = 1; i <= totalImages; i++) {
@@ -129,12 +125,6 @@
             slide.className = 'slide fade';
             slide.innerHTML = `<img src="images/gallery/${i}.png" alt="Screenshot ${i}" onclick="openLightbox(this.src)">`;
             slideContainer.insertBefore(slide, prevBtn);
-
-            // Create Thumbnail
-            const col = document.createElement('div');
-            col.className = 'column';
-            col.innerHTML = `<img class="demo" src="images/gallery/${i}.png" onclick="currentSlide(${i})" alt="Thumbnail ${i}">`;
-            thumbContainer.appendChild(col);
         }
 
         let slideIndex = 1;
