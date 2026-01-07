@@ -99,8 +99,10 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
+    text-align: center;
 }
 
 .header-logo-img {
@@ -145,8 +147,11 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     margin-top: 15px;
     text-transform: uppercase;
     letter-spacing: 3px;
-    border-left: 3px solid var(--blood-red);
-    padding-left: 15px;
+    border-left: none;
+    border-bottom: 3px solid var(--blood-red);
+    padding-left: 0;
+    padding-bottom: 10px;
+    display: inline-block;
     font-weight: 700;
 }
 
@@ -184,8 +189,8 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 
 .content-container {
     max-width: 900px; 
-    margin-left: 8%;
-    text-align: left; 
+    margin: 0 auto;
+    text-align: center; 
     padding: 20px;
     padding-top: 60px;
 }
@@ -238,6 +243,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .full-title-wrapper {
     display: flex; 
     align-items: center; 
+    justify-content: center;
     margin-bottom: 20px;
 }
 
@@ -252,6 +258,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
 .title-text-stack { 
     display: flex; 
     flex-direction: column; 
+    align-items: center;
 }
 
 h1.bloody-title {
@@ -283,8 +290,11 @@ h1.bloody-title {
     margin-bottom: 50px;
     text-transform: uppercase; 
     letter-spacing: 3px;
-    border-left: 3px solid var(--blood-red); 
-    padding-left: 15px; 
+    border-left: none;
+    border-bottom: 3px solid var(--blood-red); 
+    padding-left: 0;
+    padding-bottom: 10px;
+    display: inline-block;
     font-weight: 700;
 }
 
@@ -294,7 +304,8 @@ h1.bloody-title {
     border: 1px solid var(--border-color); 
     border-left: 3px solid var(--blood-red);
     padding: 25px; 
-    margin-bottom: 40px; 
+    margin: 0 auto 40px auto;
+    text-align: left;
     max-width: 700px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
@@ -307,6 +318,7 @@ h1.bloody-title {
     font-size: 1.1rem; 
     display: flex; 
     align-items: center;
+    justify-content: center;
 }
 
 .alert-text { 
@@ -345,6 +357,7 @@ h1.bloody-title {
     gap: 20px; 
     margin-bottom: 50px; 
     flex-wrap: wrap; 
+    justify-content: center;
 }
 
 .stat-card {
@@ -399,6 +412,7 @@ h1.bloody-title {
     color: #888; 
     display: flex; 
     align-items: center;
+    justify-content: center;
 }
 
 .status-dot {
@@ -546,7 +560,8 @@ footer {
 }
 
 .footer-content { 
-    margin-left: 8%; 
+    margin: 0 auto; 
+    text-align: center;
     max-width: 900px; 
 }
 
