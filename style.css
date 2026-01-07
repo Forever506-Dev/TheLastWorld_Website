@@ -65,7 +65,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     left: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 75.0;
+    opacity: 90.0;
 }
 
 .nav a {
