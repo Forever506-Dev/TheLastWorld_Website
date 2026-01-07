@@ -86,13 +86,6 @@ function initGlobalEffects() {
             setTimeout(() => loader.style.display = 'none', 1000);
         }, 500);
     }
-
-    document.querySelectorAll('button, .btn-neon, a.btn-neon').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.body.classList.add('shake-active');
-            setTimeout(() => document.body.classList.remove('shake-active'), 500);
-        });
-    });
 }
 
 // SERVER STATUS FETCH
