@@ -19,13 +19,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
-    cursor: url('cursor.png'), auto; 
+    cursor: url('images/cursor.png'), auto; 
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 /* CURSEUR DE POINTAGE */
 a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
-    cursor: url('pointer.png'), pointer;
+    cursor: url('images/pointer.png'), pointer;
 }
 
 /* SCANLINES EFFECT */
@@ -165,7 +165,7 @@ a, button, .btn-neon, .lang-container, .lang-options span, [onclick], .nav a {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('fond.jpg') no-repeat center center/cover;
+    background: url('images/fond.jpg') no-repeat center center/cover;
     z-index: 0;
     animation: bg-zoom 40s infinite alternate ease-in-out;
 }
