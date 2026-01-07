@@ -127,18 +127,19 @@
             // Create Slide
             const slide = document.createElement('div');
             slide.className = 'slide fade';
-            slide.innerHTML = `<img src="images/gallery/${i}.jpeg" alt="Screenshot ${i}" onclick="openLightbox(this.src)">`;
+            slide.innerHTML = `<img src="images/gallery/${i}.jpg" onerror="this.onerror=null;this.src='images/gallery/${i}.jpeg'" alt="Screenshot ${i}" onclick="openLightbox(this.src)">`;
             slideContainer.insertBefore(slide, prevBtn);
 
             // Create Thumbnail
             const col = document.createElement('div');
             col.className = 'column';
-            col.innerHTML = `<img class="demo" src="images/gallery/${i}.jpeg" onclick="currentSlide(${i})" alt="Thumbnail ${i}">`;
+            col.innerHTML = `<img class="demo" src="images/gallery/${i}.jpg" onerror="this.onerror=null;this.src='images/gallery/${i}.jpeg'" onclick="currentSlide(${i})" alt="Thumbnail ${i}">`;
             thumbContainer.appendChild(col);
         }
 
         let slideIndex = 1;
         let currentLang = 'fr';
+        let slideTimer;
         
         const content = {
             fr: {
@@ -190,6 +191,10 @@
             
             // Update current image counter
             document.getElementById('current-image').innerText = slideIndex + '/' + slides.length;
+
+            // Autoplay: Change image every 5 seconds
+            clearTimeout(slideTimer);
+            slideTimer = setTimeout(() => plusSlides(1), 5000);
         }
 
         // Keyboard navigation
