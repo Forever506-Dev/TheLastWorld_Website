@@ -127,13 +127,13 @@
             // Create Slide
             const slide = document.createElement('div');
             slide.className = 'slide fade';
-            slide.innerHTML = `<img src="images/gallery/${i}.jpg" onerror="this.onerror=null;this.src='images/gallery/${i}.jpeg'" alt="Screenshot ${i}" onclick="openLightbox(this.src)">`;
+            slide.innerHTML = `<img src="images/gallery/${i}.png" alt="Screenshot ${i}" onclick="openLightbox(this.src)">`;
             slideContainer.insertBefore(slide, prevBtn);
 
             // Create Thumbnail
             const col = document.createElement('div');
             col.className = 'column';
-            col.innerHTML = `<img class="demo" src="images/gallery/${i}.jpg" onerror="this.onerror=null;this.src='images/gallery/${i}.jpeg'" onclick="currentSlide(${i})" alt="Thumbnail ${i}">`;
+            col.innerHTML = `<img class="demo" src="images/gallery/${i}.png" onclick="currentSlide(${i})" alt="Thumbnail ${i}">`;
             thumbContainer.appendChild(col);
         }
 
