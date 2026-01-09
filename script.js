@@ -114,3 +114,19 @@ async function fetchPlayerCount() {
         return null;
     }
 }
+
+async function updateServerStatus() {
+    const dot = document.querySelector('.status-dot');
+    const playerCountElement = document.getElementById('player-count');
+    const count = await fetchPlayerCount();
+    
+    if (count !== null) {
+        if(dot) dot.classList.remove('offline');
+        if(playerCountElement) playerCountElement.innerText = count;
+        document.getElementById('server-status-text').innerText = `SYSTEME OPÉRATIONNEL - ${count} JOUEURS EN LIGNE`;
+    } else {
+        if(dot) dot.classList.add('offline');
+        if(playerCountElement) playerCountElement.innerText = '0';
+        document.getElementById('server-status-text').innerText = "ERREUR CONNEXION / OFFLINE";
+    }
+}
